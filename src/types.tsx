@@ -30,4 +30,10 @@ type DeleteCardAction = {
   id: string;
 };
 
-export type ActionsType = AddCardAction | DeleteCardAction;
+type MoveCardAction = {
+  type: "move";
+  id: string;
+  column: string;
+};
+
+export type ActionsType = AddCardAction | DeleteCardAction | MoveCardAction;

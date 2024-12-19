@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CardsProps, ColumProps } from "../types";
 import { Card, AddCard } from "./Card";
 import DropIndicator from "./DropIndicator";
+import { CardDispatchContext } from "../Context";
 
 export default function Column(props: ColumProps) {
   const { title, headingColor, cards, name } = props;
   const [active, setActive] = useState(false);
+
+  const dispatch = useContext(CardDispatchContext);
 
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
@@ -20,7 +23,11 @@ export default function Column(props: ColumProps) {
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
     const cardId = e.dataTransfer.getData("CardID");
-    console.log(cardId);
+    dispatch({
+      type: "move",
+      id: cardId,
+      column: name,
+    });
     setActive(false);
   }
 

@@ -43,6 +43,15 @@ function reducer(cards: CardsProps[], action: ActionsType) {
     case "delete": {
       return cards.filter((c) => c.id !== action.id);
     }
+    case "move": {
+      return cards.map((card) => {
+        if (card.id === action.id) {
+          return { ...card, columnName: action.column };
+        } else {
+          return card;
+        }
+      });
+    }
     default:
       throw Error("Unknown action: " + action);
   }

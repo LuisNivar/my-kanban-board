@@ -7,9 +7,22 @@ export default function Column(props: ColumProps) {
   const { title, headingColor, cards, name } = props;
   const [active, setActive] = useState(false);
 
-  // function handleDragStart(e : React.DragEvent, cardId : string ){
-  //   e.dataTransfer.setData("CardId", cardId)
-  // }
+  function handleDragOver(e: React.DragEvent) {
+    e.preventDefault();
+    setActive(true);
+  }
+
+  function handleDragLeave(e: React.DragEvent) {
+    e.preventDefault();
+    setActive(false);
+  }
+
+  function handleDrop(e: React.DragEvent) {
+    e.preventDefault();
+    const cardId = e.dataTransfer.getData("CardID");
+    console.log(cardId);
+    setActive(false);
+  }
 
   const filteredCards = cards.filter((c: CardsProps) => c.columnName === name);
 
@@ -22,6 +35,9 @@ export default function Column(props: ColumProps) {
         </span>
       </div>
       <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
         className={`h-full w-full transition-colors ${
           active ? "bg-neutral-800/50" : "bg-neutral-800/0"
         }`}

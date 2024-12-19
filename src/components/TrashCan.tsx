@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GoTrash as TrashIcon } from "react-icons/go";
 import { HiOutlineFire as FireIcon } from "react-icons/hi2";
+import { CardDispatchContext } from "../Context";
 
 export default function TrashCan() {
   const [active, setActive] = useState(false);
+  const dispatch = useContext(CardDispatchContext);
 
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
@@ -16,6 +18,10 @@ export default function TrashCan() {
 
   function handleDrop(e: React.DragEvent) {
     const cardId = e.dataTransfer.getData("CardId");
+    dispatch({
+      type: "delete",
+      id: cardId,
+    });
     setActive(false);
   }
 

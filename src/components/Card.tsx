@@ -1,7 +1,8 @@
 import { AddCardsProps, CardsProps } from "../types";
 import { GoPlus as AddIcon } from "react-icons/go";
 import DropIndicator from "./DropIndicator";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CardDispatchContext } from "../Context";
 
 export function Card(props: CardsProps) {
   const { title, id, columnName } = props;
@@ -28,6 +29,7 @@ export function AddCard(props: AddCardsProps) {
   const { columnName } = props;
   const [text, setText] = useState("");
   const [adding, setAdding] = useState(false);
+  const dispatch = useContext(CardDispatchContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +40,11 @@ export function AddCard(props: AddCardsProps) {
       title: text.trim(),
       id: Math.random().toString(),
     };
+
+    dispatch({
+      type: "add",
+      newCard: newCard,
+    });
     setAdding(false);
   };
 

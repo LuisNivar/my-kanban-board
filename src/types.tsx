@@ -19,3 +19,15 @@ export type DropIndicatorProps = {
 export type AddCardsProps = {
   columnName: string;
 };
+
+type AddCardAction = {
+  type: "add";
+  newCard: CardsProps;
+};
+
+type DeleteCardAction = {
+  type: "delete";
+  id: string;
+};
+
+export type ActionsType = AddCardAction | DeleteCardAction;

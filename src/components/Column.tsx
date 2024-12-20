@@ -34,10 +34,10 @@ export default function Column(props: ColumProps) {
   const filteredCards = cards.filter((c: CardsProps) => c.columnName === name);
 
   return (
-    <div className="w-56 shrink-0">
-      <div className="mb-3 gap-2 flex items-center">
+    <div className="w-full">
+      <div className="px-3 py-2 rounded cursor-default bg-neutral-800/50 mb-1 gap-2 flex items-center justify-between">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
-        <span className="rounded text-sm text-neutral-400">
+        <span className="text-center text-sm text-neutral-400">
           {filteredCards.length}
         </span>
       </div>
@@ -45,8 +45,8 @@ export default function Column(props: ColumProps) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`h-full w-full transition-colors ${
-          active ? "bg-neutral-800/50" : "bg-neutral-800/0"
+        className={`rounded h-full w-full transition-colors ${
+          active ? "bg-neutral-800/50" : "bg-neutral-800/10"
         }`}
       >
         {filteredCards.map((c: CardsProps) => (

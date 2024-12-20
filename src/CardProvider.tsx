@@ -8,36 +8,72 @@ const INITIAL_CARDS: CardsProps[] = [
     columnName: "backlog",
     id: "1",
     date: "12/16/2024",
+    tags: {
+      red: true,
+      yellow: false,
+      green: false,
+      blue: false,
+    },
   },
   {
     title: "Another thing to do...",
     columnName: "todo",
     id: "2",
     date: "12/16/2024",
+    tags: {
+      red: false,
+      yellow: true,
+      green: false,
+      blue: false,
+    },
   },
   {
     title: "A thing to figure out..",
     columnName: "todo",
     id: "6",
     date: "12/17/2024",
+    tags: {
+      red: true,
+      yellow: true,
+      green: true,
+      blue: false,
+    },
   },
   {
     title: "A stuff to solve...",
     columnName: "in-progress",
     id: "3",
     date: "12/17/2024",
+    tags: {
+      red: true,
+      yellow: false,
+      green: true,
+      blue: true,
+    },
   },
   {
     title: "A real thing to try",
     columnName: "backlog",
     id: "4",
     date: "12/18/2024",
+    tags: {
+      red: false,
+      yellow: false,
+      green: true,
+      blue: false,
+    },
   },
   {
     title: "Some foods to taste...",
     columnName: "complete",
     id: "5",
     date: "12/14/2024",
+    tags: {
+      red: true,
+      yellow: false,
+      green: true,
+      blue: false,
+    },
   },
 ];
 

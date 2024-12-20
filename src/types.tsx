@@ -9,6 +9,7 @@ export type CardsProps = {
   title: string;
   columnName: string;
   id: string;
+  date: string;
 };
 
 export type DropIndicatorProps = {

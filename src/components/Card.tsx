@@ -1,11 +1,12 @@
-import { AddCardsProps, CardsProps } from "../types";
-import { GoPlus as AddIcon } from "react-icons/go";
-import DropIndicator from "./DropIndicator";
 import { useContext, useState } from "react";
+import { GoPlus as AddIcon } from "react-icons/go";
 import { CardDispatchContext } from "../Context";
+import { AddCardsProps, CardsProps } from "../types";
+import { FormatDate } from "../utils";
+import DropIndicator from "./DropIndicator";
 
 export function Card(props: CardsProps) {
-  const { title, id, columnName } = props;
+  const { title, id, columnName, date } = props;
 
   function handleDragStart(e: React.DragEvent) {
     e.dataTransfer.setData("CardId", id);
@@ -17,9 +18,10 @@ export function Card(props: CardsProps) {
       <div
         draggable
         onDragStart={handleDragStart}
-        className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
+        className="flex flex-col gap-1 cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
       >
         <p className="text-sm text-neutral-300">{title}</p>
+        <span className="text-xs text-neutral-500 self-end">{date}</span>
       </div>
     </>
   );
@@ -39,6 +41,7 @@ export function AddCard(props: AddCardsProps) {
       columnName,
       title: text.trim(),
       id: Math.random().toString(),
+      date: FormatDate(new Date()),
     };
 
     dispatch({

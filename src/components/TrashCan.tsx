@@ -31,13 +31,16 @@ export default function TrashCan() {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`mt-10 flex max-h-56 aspect-square items-center justify-center rounded border text-3xl ${
+      className={`mt-10 flex flex-col max-h-56 aspect-square items-center justify-center rounded border text-3xl ${
         active
           ? "border-red-800 bg-red-800/20 text-red-500"
-          : "border-neutral-700 bg-neutral-800 text-neutral-300"
+          : "border-neutral-700 bg-neutral-800 text-neutral-400"
       }`}
     >
       {active ? <FireIcon /> : <TrashIcon />}
+      <span className="text-xs mt-3">
+        {active ? "Do it!" : "Drop a card here to delete it."}
+      </span>
     </div>
   );
 }

@@ -10,6 +10,24 @@ export type CardsProps = {
   columnName: string;
   id: string;
   date: string;
+  tags: Tags;
+};
+
+export type SelectTags = {
+  color: "red" | "yellow" | "green" | "blue";
+  value: boolean;
+};
+
+export type Tags = {
+  red: boolean;
+  yellow: boolean;
+  green: boolean;
+  blue: boolean;
+};
+
+export type TagSelectorProps = {
+  state: Tags;
+  setTags: (value: React.SetStateAction<Tags>) => void;
 };
 
 export type DropIndicatorProps = {

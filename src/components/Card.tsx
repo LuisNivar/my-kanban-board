@@ -18,9 +18,10 @@ export function Card(props: CardsProps) {
       <div
         draggable
         onDragStart={handleDragStart}
-        className="flex flex-col gap-1 cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
+        className="flex flex-col gap-1 cursor-grab rounded border border-neutral-700 hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing"
       >
         <p className="text-sm text-neutral-300">{title}</p>
+
         <span className="text-xs text-neutral-500 self-end">{date}</span>
       </div>
     </>
@@ -61,6 +62,7 @@ export function AddCard(props: AddCardsProps) {
             placeholder="Add new task..."
             className="w-full rounded border border-teal-400 bg-teal-400/20 p-3 text-sm text-neutral-50 placeholder:teal-300 focus:outline-0"
           ></textarea>
+
           <div className="mt-1.5 flex items-center justify-end gap-2">
             <button
               onClick={() => setAdding(false)}
@@ -82,7 +84,7 @@ export function AddCard(props: AddCardsProps) {
           onClick={() => setAdding(true)}
           className="flex w-full items-center gap-1 px-3 py-1 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
         >
-          <span>Add Card</span>
+          <span>New card</span>
           <AddIcon />
         </button>
       )}

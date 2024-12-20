@@ -17,6 +17,7 @@ export default function TrashCan() {
   }
 
   function handleDrop(e: React.DragEvent) {
+    e.preventDefault();
     const cardId = e.dataTransfer.getData("CardId");
     dispatch({
       type: "delete",
@@ -30,10 +31,10 @@ export default function TrashCan() {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`mt-10 flex h-56 w-56 items-center justify-center rounded border text-3xl ${
+      className={`mt-10 flex max-h-56 aspect-square items-center justify-center rounded border text-3xl ${
         active
           ? "border-red-800 bg-red-800/20 text-red-500"
-          : "border-neutral-500 bg-neutral-500/20 text-nutra-500"
+          : "border-neutral-700 bg-neutral-800 text-neutral-300"
       }`}
     >
       {active ? <FireIcon /> : <TrashIcon />}

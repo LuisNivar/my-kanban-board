@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
 import { GoPlus as AddIcon } from "react-icons/go";
+import { GoKebabHorizontal as MoreIcon } from "react-icons/go";
+
 import { CardDispatchContext } from "../Context";
 import { AddCardsProps, CardsProps, Tags } from "../types";
 import { FormatDate } from "../utils";
 import DropIndicator from "./DropIndicator";
 import { TagSelector } from "./TagSelector";
+import { MenuAction } from "./MenuAction";
 
 export function Card(props: CardsProps) {
   const { title, id, columnName, date, tags } = props;
@@ -21,11 +24,16 @@ export function Card(props: CardsProps) {
         onDragStart={handleDragStart}
         className="flex flex-col gap-1 cursor-grab rounded border border-neutral-700 hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing"
       >
-        <div className="flex gap-1 mb-1">
-          {tags.red && <div className="w-5 h-2 rounded bg-rose-500"></div>}
-          {tags.yellow && <div className="w-5 h-2 rounded bg-yellow-500"></div>}
-          {tags.green && <div className="w-5 h-2 rounded bg-emerald-500"></div>}
-          {tags.blue && <div className="w-5 h-2 rounded bg-blue-500"></div>}
+        <div className="flex justify-between">
+          <span className="flex gap-1 mb-1">
+            {tags.red && <span className="w-5 h-2 rounded bg-rose-500" />}
+            {tags.yellow && <span className="w-5 h-2 rounded bg-yellow-500" />}
+            {tags.green && <span className="w-5 h-2 rounded bg-emerald-500" />}
+            {tags.blue && <span className="w-5 h-2 rounded bg-blue-500" />}
+          </span>
+          <MenuAction>
+            <MoreIcon className="text-xl p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400" />
+          </MenuAction>
         </div>
         <p className="text-sm text-neutral-300">{title}</p>
 

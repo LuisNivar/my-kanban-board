@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 import { CardContext, CardDispatchContext } from "./Context";
-import { ActionsType, CardsProps } from "./types";
+import { ActionsType, CardProps } from "./types";
 
-const INITIAL_CARDS: CardsProps[] = [
+const INITIAL_CARDS: CardProps[] = [
   {
     title: "Something to do...",
     columnName: "backlog",
@@ -77,7 +77,7 @@ const INITIAL_CARDS: CardsProps[] = [
   },
 ];
 
-function reducer(cards: CardsProps[], action: ActionsType) {
+function reducer(cards: CardProps[], action: ActionsType) {
   switch (action.type) {
     case "add": {
       return [...cards, action.newCard];

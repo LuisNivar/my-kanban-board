@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CardsProps, ColumProps } from "../types";
+import { CardProps, ColumProps } from "../types";
 import { Card, AddCard } from "./Card";
 import DropIndicator from "./DropIndicator";
 import { CardDispatchContext } from "../Context";
@@ -31,7 +31,7 @@ export default function Column(props: ColumProps) {
     setActive(false);
   }
 
-  const filteredCards = cards.filter((c: CardsProps) => c.columnName === name);
+  const filteredCards = cards.filter((c: CardProps) => c.columnName === name);
 
   return (
     <div className="w-full">
@@ -49,7 +49,7 @@ export default function Column(props: ColumProps) {
           active ? "bg-neutral-800/50" : "bg-neutral-800/10"
         }`}
       >
-        {filteredCards.map((c: CardsProps) => (
+        {filteredCards.map((c: CardProps) => (
           <Card key={c.id} {...c} />
         ))}
         <DropIndicator currColumn={name} />

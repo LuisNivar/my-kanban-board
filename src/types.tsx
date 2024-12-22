@@ -2,15 +2,15 @@ export type ColumProps = {
   title: string;
   headingColor: string;
   name: string;
-  cards: CardsProps[];
+  cards: CardProps[];
 };
 
-export type CardsProps = {
+export type CardProps = {
   title: string;
   columnName: string;
   id: string;
   date: string;
-  tags: Tags;
+  tags: Tag;
 };
 
 export type SelectTags = {
@@ -18,7 +18,7 @@ export type SelectTags = {
   value: boolean;
 };
 
-export type Tags = {
+export type Tag = {
   red: boolean;
   yellow: boolean;
   green: boolean;
@@ -26,8 +26,8 @@ export type Tags = {
 };
 
 export type TagSelectorProps = {
-  state: Tags;
-  setTags: (value: React.SetStateAction<Tags>) => void;
+  state: Tag;
+  setTags: (value: React.SetStateAction<Tag>) => void;
 };
 
 export type DropIndicatorProps = {
@@ -35,13 +35,13 @@ export type DropIndicatorProps = {
   currColumn: string;
 };
 
-export type AddCardsProps = {
+export type AddCardProps = {
   columnName: string;
 };
 
 type AddCardAction = {
   type: "add";
-  newCard: CardsProps;
+  newCard: CardProps;
 };
 
 type DeleteCardAction = {

@@ -55,4 +55,20 @@ type MoveCardAction = {
   column: string;
 };
 
-export type ActionsType = AddCardAction | DeleteCardAction | MoveCardAction;
+type UpdateTags = {
+  type: "updateTags";
+  id: string;
+  tags: Tag;
+};
+
+// type Update = {
+//   type: "update"
+//   id: string;
+//   props : Omit<CardProps, "id">
+// }
+
+export type ActionsType =
+  | AddCardAction
+  | DeleteCardAction
+  | MoveCardAction
+  | UpdateTags;

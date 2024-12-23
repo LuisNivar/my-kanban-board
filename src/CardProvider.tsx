@@ -94,6 +94,15 @@ function reducer(cards: CardProps[], action: ActionsType) {
         }
       });
     }
+    case "updateTags": {
+      return cards.map((card) => {
+        if (card.id === action.id) {
+          return { ...card, tags: action.tags };
+        } else {
+          return card;
+        }
+      });
+    }
     default:
       throw Error("Unknown action: " + action);
   }

@@ -49,8 +49,8 @@ export default function Column(props: ColumProps) {
           active ? "bg-neutral-800/50" : "bg-neutral-800/10"
         }`}
       >
-        {filteredCards.map((c: CardProps) => (
-          <Card key={c.id} {...c} />
+        {filteredCards.map((card: CardProps) => (
+          <Card key={card.id} {...card} />
         ))}
         <DropIndicator currColumn={name} />
         <AddCard columnName={name} />

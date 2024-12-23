@@ -3,13 +3,13 @@ import { GoPlus as AddIcon } from "react-icons/go";
 import { GoKebabHorizontal as MoreIcon } from "react-icons/go";
 
 import { CardDispatchContext } from "../Context";
-import { AddCardsProps, CardsProps, Tags } from "../types";
+import { AddCardProps, CardProps, Tag } from "../types";
 import { FormatDate } from "../utils";
 import DropIndicator from "./DropIndicator";
 import { TagSelector } from "./TagSelector";
 import { MenuAction } from "./MenuAction";
 
-export function Card(props: CardsProps) {
+export function Card(props: CardProps) {
   const { title, id, columnName, date, tags } = props;
 
   function handleDragStart(e: React.DragEvent) {
@@ -24,17 +24,21 @@ export function Card(props: CardsProps) {
         onDragStart={handleDragStart}
         className="flex flex-col gap-1 cursor-grab rounded border border-neutral-700 hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing"
       >
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <span className="flex gap-1 mb-1">
             {tags.red && <span className="w-5 h-2 rounded bg-rose-500" />}
             {tags.yellow && <span className="w-5 h-2 rounded bg-yellow-500" />}
             {tags.green && <span className="w-5 h-2 rounded bg-emerald-500" />}
             {tags.blue && <span className="w-5 h-2 rounded bg-blue-500" />}
           </span>
-          <MenuAction>
-            <MoreIcon className="text-xl p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400" />
+
+          <MenuAction card={props}>
+            <button className="outline-none text-base p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400">
+              <MoreIcon />
+            </button>
           </MenuAction>
         </div>
+
         <p className="text-sm text-neutral-300">{title}</p>
 
         <span className="text-xs text-neutral-500 self-end">{date}</span>
@@ -43,10 +47,11 @@ export function Card(props: CardsProps) {
   );
 }
 
-export function AddCard(props: AddCardsProps) {
-  const { columnName } = props;
+export function AddCard({ columnName }: AddCardProps) {
   const [text, setText] = useState("");
   const [adding, setAdding] = useState(false);
+  const dispatch = useContext(CardDispatchContext);
+  const isEmpty = !text.trim().length;
 
   const INITIAL_TAGS_STATE = {
     red: false,
@@ -55,15 +60,13 @@ export function AddCard(props: AddCardsProps) {
     blue: false,
   };
 
-  const [tags, setTags] = useState<Tags>(INITIAL_TAGS_STATE);
-
-  const dispatch = useContext(CardDispatchContext);
+  const [tags, setTags] = useState<Tag>(INITIAL_TAGS_STATE);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!text.trim().length) return;
-    const newCard: CardsProps = {
+    if (isEmpty) return;
+    const newCard: CardProps = {
       columnName,
       title: text.trim(),
       id: Math.random().toString(),
@@ -76,7 +79,7 @@ export function AddCard(props: AddCardsProps) {
       newCard: newCard,
     });
 
-    //rest
+    //reset
     setTags(INITIAL_TAGS_STATE);
     setText("");
     setAdding(false);

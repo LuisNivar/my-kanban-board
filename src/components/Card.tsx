@@ -25,7 +25,7 @@ export function Card(props: CardProps) {
         className="flex flex-col gap-1 cursor-grab rounded border border-neutral-700 hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing"
       >
         <div className="flex items-center justify-between">
-          <span className="flex gap-1 mb-1">
+          <span className="flex gap-1">
             {tags.red && <span className="w-5 h-2 rounded bg-rose-500" />}
             {tags.yellow && <span className="w-5 h-2 rounded bg-yellow-500" />}
             {tags.green && <span className="w-5 h-2 rounded bg-emerald-500" />}
@@ -33,9 +33,7 @@ export function Card(props: CardProps) {
           </span>
 
           <MenuAction card={props}>
-            <button className="outline-none text-base p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400">
-              <MoreIcon />
-            </button>
+            <MoreIcon className="outline-none text-lg p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400" />
           </MenuAction>
         </div>
 

@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import { ActionsType, CardProps } from "./types";
+import { ActionsType, ItemProps } from "./types";
 
-export const CardContext = createContext<CardProps[] | []>([]);
+export const CardContext = createContext<ItemProps[] | []>([]);
 
 export const CardDispatchContext = createContext<React.Dispatch<ActionsType>>(
   () => {}

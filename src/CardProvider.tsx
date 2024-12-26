@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 import { CardContext, CardDispatchContext } from "./Context";
-import { ActionsType, CardProps } from "./types";
+import { ActionsType, ItemProps } from "./types";
 
-const INITIAL_CARDS: CardProps[] = [
+const INITIAL_CARDS: ItemProps[] = [
   {
     title: "Something to do...",
     columnName: "backlog",
@@ -77,7 +77,7 @@ const INITIAL_CARDS: CardProps[] = [
   },
 ];
 
-function reducer(cards: CardProps[], action: ActionsType) {
+function reducer(cards: ItemProps[], action: ActionsType) {
   switch (action.type) {
     case "add": {
       return [...cards, action.newCard];
@@ -103,6 +103,17 @@ function reducer(cards: CardProps[], action: ActionsType) {
         }
       });
     }
+
+    case "updateText": {
+      return cards.map((card) => {
+        if (card.id === action.id) {
+          return { ...card, title: action.title };
+        } else {
+          return card;
+        }
+      });
+    }
+
     default:
       throw Error("Unknown action: " + action);
   }

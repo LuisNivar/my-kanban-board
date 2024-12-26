@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CardProps, ColumProps } from "../types";
+import { ItemProps, ColumProps, CardProps } from "../types";
 import { Card, AddCard } from "./Card";
 import DropIndicator from "./DropIndicator";
 import { CardDispatchContext } from "../Context";
@@ -7,7 +7,6 @@ import { CardDispatchContext } from "../Context";
 export default function Column(props: ColumProps) {
   const { title, headingColor, cards, name } = props;
   const [active, setActive] = useState(false);
-
   const dispatch = useContext(CardDispatchContext);
 
   function handleDragOver(e: React.DragEvent) {
@@ -31,7 +30,7 @@ export default function Column(props: ColumProps) {
     setActive(false);
   }
 
-  const filteredCards = cards.filter((c: CardProps) => c.columnName === name);
+  const filteredCards = cards.filter((c: ItemProps) => c.columnName === name);
 
   return (
     <div className="w-full">
@@ -49,8 +48,8 @@ export default function Column(props: ColumProps) {
           active ? "bg-neutral-800/50" : "bg-neutral-800/10"
         }`}
       >
-        {filteredCards.map((card: CardProps) => (
-          <Card key={card.id} {...card} />
+        {filteredCards.map((card: ItemProps) => (
+          <Card key={card.id} {...card} editable={false} />
         ))}
         <DropIndicator currColumn={name} />
         <AddCard columnName={name} />

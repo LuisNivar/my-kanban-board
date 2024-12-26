@@ -2,15 +2,19 @@ export type ColumProps = {
   title: string;
   headingColor: string;
   name: string;
-  cards: CardProps[];
+  cards: ItemProps[];
 };
 
-export type CardProps = {
+export type ItemProps = {
   title: string;
   columnName: string;
   id: string;
   date: string;
   tags: Tag;
+};
+
+export type CardProps = ItemProps & {
+  editable: boolean | false;
 };
 
 export type SelectTags = {
@@ -41,7 +45,7 @@ export type AddCardProps = {
 
 type AddCardAction = {
   type: "add";
-  newCard: CardProps;
+  newCard: ItemProps;
 };
 
 type DeleteCardAction = {
@@ -61,6 +65,11 @@ type UpdateTags = {
   tags: Tag;
 };
 
+type UpdateText = {
+  type: "updateText";
+  id: string;
+  title: string;
+};
 // type Update = {
 //   type: "update"
 //   id: string;
@@ -71,4 +80,5 @@ export type ActionsType =
   | AddCardAction
   | DeleteCardAction
   | MoveCardAction
-  | UpdateTags;
+  | UpdateTags
+  | UpdateText;

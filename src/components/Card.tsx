@@ -1,22 +1,18 @@
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import { GoPlus as AddIcon } from "react-icons/go";
-import { GoKebabHorizontal as MoreIcon } from "react-icons/go";
+import React, { useContext, useLayoutEffect, useRef, useState } from "react";
+import {
+  GoPlus as AddIcon,
+  GoKebabHorizontal as MoreIcon,
+} from "react-icons/go";
 
 import { CardDispatchContext } from "../Context";
 import { AddCardProps, CardProps, ItemProps, Tag } from "../types";
 import { FormatDate } from "../utils";
 import DropIndicator from "./DropIndicator";
-import { TagSelector } from "./TagSelector";
 import { MenuAction } from "./MenuAction";
+import { TagSelector } from "./TagSelector";
 
 export function Card(props: CardProps) {
-  const { title, id, columnName, date, tags, editable: init } = props;
+  const { title, id, columnName, date, tags, order, editable: init } = props;
   const [editable, setEditable] = useState(init);
   const [text, setText] = useState(title);
   const dispatch = useContext(CardDispatchContext);
@@ -73,7 +69,7 @@ export function Card(props: CardProps) {
             {tags.green && <span className="h-2 w-4 rounded bg-emerald-500" />}
             {tags.blue && <span className="h-2 w-4 rounded bg-blue-500" />}
           </div>
-          <MenuAction card={props} handleRename={handleRename}>
+          <MenuAction card={props} onRename={handleRename}>
             <MoreIcon className="text-lg p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400" />
           </MenuAction>
         </div>
@@ -90,8 +86,11 @@ export function Card(props: CardProps) {
         ) : (
           <p className="text-sm text-neutral-300">{title}</p>
         )}
-
-        <span className="self-end text-xs text-neutral-500">{date}</span>
+        <span className="flex items-center justify-between gap-2 text-xs text-neutral-500">
+          {/* //TODO REMOVE LATER   */}
+          <span className="text-teal-200">{`#${order} (${columnName})`}</span>
+          <span className="self-end">{date}</span>
+        </span>
       </div>
     </>
   );

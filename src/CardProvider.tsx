@@ -103,7 +103,6 @@ function reducer(cards: ItemProps[], action: ActionsType) {
         }
       });
     }
-
     case "updateText": {
       return cards.map((card) => {
         if (card.id === action.id) {
@@ -112,6 +111,9 @@ function reducer(cards: ItemProps[], action: ActionsType) {
           return card;
         }
       });
+    }
+    case "updateAll": {
+      return [...action.cards];
     }
 
     default:

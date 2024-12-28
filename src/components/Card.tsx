@@ -56,7 +56,7 @@ export function Card(props: CardProps) {
 
   return (
     <>
-      <DropIndicator prevId={id} currColumn={columnName} />
+      <DropIndicator beforeId={id} currColumn={columnName} />
       <div
         draggable
         onDragStart={handleDragStart}
@@ -86,11 +86,7 @@ export function Card(props: CardProps) {
         ) : (
           <p className="text-sm text-neutral-300">{title}</p>
         )}
-        <span className="flex items-center justify-between gap-2 text-xs text-neutral-500">
-          {/* //TODO REMOVE LATER   */}
-          <span className="text-teal-200">{`#${order} (${columnName})`}</span>
-          <span className="self-end">{date}</span>
-        </span>
+        <span className="text-xs text-neutral-500 self-end">{date}</span>
       </div>
     </>
   );

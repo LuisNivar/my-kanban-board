@@ -13,15 +13,19 @@ import { GoChevronRight as ChevronIcon } from "react-icons/go";
 
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;
-  handleRename: () => void;
+  onRename: () => void;
 };
 
-export function MenuAction({ children, card, handleRename }: MenuActionProps) {
+export function MenuAction({
+  children,
+  card,
+  onRename: onRename,
+}: MenuActionProps) {
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger>{children}</DropdownMenu.Trigger>
       <DropdownMenu.Content>
-        <CardOptions card={card} handleRename={handleRename} />
+        <CardOptions card={card} onRename={onRename} />
       </DropdownMenu.Content>
     </DropdownMenu>
   );
@@ -50,10 +54,10 @@ function CheckAction({ label, ...props }: CheckboxItemProps) {
 
 type CardOptionsProps = {
   card: CardProps;
-  handleRename: () => void;
+  onRename: () => void;
 };
 
-function CardOptions({ card, handleRename }: CardOptionsProps) {
+function CardOptions({ card, onRename }: CardOptionsProps) {
   const dispatch = useContext(CardDispatchContext);
   const [red, setRed] = useState(card.tags.red);
   const [yellow, setYellow] = useState(card.tags.yellow);
@@ -65,7 +69,7 @@ function CardOptions({ card, handleRename }: CardOptionsProps) {
   };
 
   const handleEdit = () => {
-    handleRename();
+    onRename();
   };
 
   function handleChangeTags(tag: string, value: boolean) {

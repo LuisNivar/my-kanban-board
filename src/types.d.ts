@@ -15,6 +15,7 @@ export type ItemProps = {
 
 export type CardProps = ItemProps & {
   editable: boolean | false;
+  order: number;
 };
 
 export type SelectTags = {
@@ -35,7 +36,7 @@ export type TagSelectorProps = {
 };
 
 export type DropIndicatorProps = {
-  prevId?: string;
+  beforeId?: string | null;
   currColumn: string;
 };
 
@@ -65,6 +66,11 @@ type UpdateTags = {
   tags: Tag;
 };
 
+type UpdateAll = {
+  type: "updateAll";
+  cards: ItemProps[];
+};
+
 type UpdateText = {
   type: "updateText";
   id: string;
@@ -81,4 +87,5 @@ export type ActionsType =
   | DeleteCardAction
   | MoveCardAction
   | UpdateTags
-  | UpdateText;
+  | UpdateText
+  | UpdateAll;

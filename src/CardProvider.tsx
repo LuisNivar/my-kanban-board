@@ -1,7 +1,8 @@
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { CardContext, CardDispatchContext } from "./Context";
 import { ActionsType, ItemProps } from "./types";
 
+//TODO: Create tutorials cars
 const INITIAL_CARDS: ItemProps[] = [
   {
     title: "Something to do...",
@@ -126,7 +127,27 @@ type CardProviderProps = {
 };
 
 export function CardProvider({ children }: CardProviderProps) {
-  const [cards, dispatch] = useReducer(reducer, INITIAL_CARDS);
+  const [cards, dispatch] = useReducer(reducer, []);
+  const [hasChecked, setHasChecked] = useState(false);
+
+  // UPDATE LocalStorage
+  useEffect(() => {
+    if (hasChecked) {
+      localStorage.setItem("cards", JSON.stringify(cards));
+    }
+  }, [cards]);
+
+  // INITIALIZE Cards
+  useEffect(() => {
+    const cardsLoads = localStorage.getItem("cards");
+    const initCard = cardsLoads ? JSON.parse(cardsLoads) : [];
+
+    dispatch({
+      type: "updateAll",
+      cards: initCard,
+    });
+    setHasChecked(true);
+  }, []);
 
   return (
     <CardContext.Provider value={cards}>

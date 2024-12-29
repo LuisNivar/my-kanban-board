@@ -5,7 +5,7 @@ import { ActionsType, ItemProps } from "./types";
 //TODO: Create tutorials cars
 const INITIAL_CARDS: ItemProps[] = [
   {
-    title: "Something to do...",
+    text: "Something to do...",
     columnName: "backlog",
     id: "1",
     date: "12/16/2024",
@@ -17,7 +17,7 @@ const INITIAL_CARDS: ItemProps[] = [
     },
   },
   {
-    title: "Another thing to do...",
+    text: "Another thing to do...",
     columnName: "todo",
     id: "2",
     date: "12/16/2024",
@@ -29,7 +29,7 @@ const INITIAL_CARDS: ItemProps[] = [
     },
   },
   {
-    title: "A thing to figure out..",
+    text: "A thing to figure out..",
     columnName: "todo",
     id: "6",
     date: "12/17/2024",
@@ -41,7 +41,7 @@ const INITIAL_CARDS: ItemProps[] = [
     },
   },
   {
-    title: "A stuff to solve...",
+    text: "A stuff to solve...",
     columnName: "in-progress",
     id: "3",
     date: "12/17/2024",
@@ -53,7 +53,7 @@ const INITIAL_CARDS: ItemProps[] = [
     },
   },
   {
-    title: "A real thing to try",
+    text: "A real thing to try",
     columnName: "backlog",
     id: "4",
     date: "12/18/2024",
@@ -65,7 +65,7 @@ const INITIAL_CARDS: ItemProps[] = [
     },
   },
   {
-    title: "Some foods to taste...",
+    text: "Some foods to taste...",
     columnName: "complete",
     id: "5",
     date: "12/14/2024",
@@ -107,7 +107,7 @@ function reducer(cards: ItemProps[], action: ActionsType) {
     case "updateText": {
       return cards.map((card) => {
         if (card.id === action.id) {
-          return { ...card, title: action.title };
+          return { ...card, text: action.text };
         } else {
           return card;
         }

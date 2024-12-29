@@ -9,6 +9,7 @@ export default function Column(props: ColumProps) {
   const [active, setActive] = useState(false);
   const dispatch = useContext(CardDispatchContext);
 
+  //#region Handlers
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
     highlightIndicator(e);
@@ -23,43 +24,13 @@ export default function Column(props: ColumProps) {
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
-    const cardId = e.dataTransfer.getData("CardID");
-
-    const indicator = getDropIndicators();
-    const { element } = getNearestDropIndicator(e, indicator);
-    const before = element.dataset.before || "-1";
-
-    if (before !== cardId) {
-      let copy = [...cards];
-
-      let cardToTransfer = copy.find((c) => c.id === cardId);
-      if (!cardToTransfer) return;
-
-      cardToTransfer = { ...cardToTransfer, columnName: name };
-
-      copy = copy.filter((c) => c.id !== cardId);
-
-      const isMoveToBack = before === "-1";
-
-      if (isMoveToBack) {
-        copy.push(cardToTransfer);
-      } else {
-        const insertAtIndex = copy.findIndex((el) => el.id === before);
-        if (insertAtIndex === undefined) return;
-
-        copy.splice(insertAtIndex, 0, cardToTransfer);
-      }
-
-      dispatch({
-        type: "updateAll",
-        cards: copy,
-      });
-    }
-
+    updateCardPositions(e);
     clearHighlightIndicator();
     setActive(false);
   }
+  //#endregion
 
+  //#region Drop Indicators
   function getDropIndicators(): HTMLElement[] {
     return Array.from(document.querySelectorAll(`[data-column="${name}"]`));
   }
@@ -101,6 +72,47 @@ export default function Column(props: ColumProps) {
     );
     return nearest;
   }
+  //#endregion
+
+  function updateCardPositions(e: React.DragEvent) {
+    const cardId = e.dataTransfer.getData("CardID");
+    const indicator = getDropIndicators();
+    const { element } = getNearestDropIndicator(e, indicator);
+    const beforeCardId = element.dataset.before || "-1";
+
+    // Drop it in the same place
+    if (beforeCardId === cardId) return;
+
+    let copy = [...cards];
+
+    // Search the card in the copy
+    let cardToMove = copy.find((c) => c.id === cardId);
+
+    // Prevent ghost cards
+    if (!cardToMove) return;
+
+    // Assign the current column
+    cardToMove.columnName = name;
+
+    // Remove the card of array
+    copy = copy.filter((c) => c.id !== cardId);
+
+    const isMoveToEnd = beforeCardId === "-1";
+
+    if (isMoveToEnd) {
+      copy.push(cardToMove);
+    } else {
+      const insertAtIndex = copy.findIndex((card) => card.id === beforeCardId);
+      // Prevent ghost cards x2
+      if (insertAtIndex === undefined) return;
+      copy.splice(insertAtIndex, 0, cardToMove);
+    }
+
+    dispatch({
+      type: "updateAll",
+      cards: copy,
+    });
+  }
 
   const filteredCards = cards.filter((c: ItemProps) => c.columnName === name);
 
@@ -120,9 +132,10 @@ export default function Column(props: ColumProps) {
           active ? "bg-neutral-800/50" : "bg-neutral-800/10"
         }`}
       >
-        {filteredCards.map((card: ItemProps, order: number) => (
-          <Card key={card.id} order={order} {...card} editable={false} />
+        {filteredCards.map((card: ItemProps) => (
+          <Card key={card.id} {...card} editable={false} />
         ))}
+
         <DropIndicator beforeId={null} currColumn={name} />
         <AddCard columnName={name} />
       </div>

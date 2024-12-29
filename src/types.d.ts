@@ -15,7 +15,6 @@ export type ItemProps = {
 
 export type CardProps = ItemProps & {
   editable: boolean | false;
-  order: number;
 };
 
 export type SelectTags = {
@@ -76,6 +75,7 @@ type UpdateText = {
   id: string;
   title: string;
 };
+
 // type Update = {
 //   type: "update"
 //   id: string;

@@ -3,7 +3,6 @@ import {
   GoPlus as AddIcon,
   GoKebabHorizontal as MoreIcon,
 } from "react-icons/go";
-
 import { CardDispatchContext } from "../Context";
 import { AddCardProps, CardProps, ItemProps, Tag } from "../types";
 import { FormatDate } from "../utils";
@@ -18,6 +17,7 @@ export function Card(props: CardProps) {
   const dispatch = useContext(CardDispatchContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  //#region Handlers
   function handleKey(e: React.KeyboardEvent) {
     if (e.key === "Enter") {
       dispatch({
@@ -43,6 +43,11 @@ export function Card(props: CardProps) {
     dispatch({ type: "delete", id });
   }
 
+  function handleDragStart(e: React.DragEvent) {
+    e.dataTransfer.setData("CardId", id);
+  }
+  //#endregion
+
   useLayoutEffect(() => {
     if (editable) {
       // HACK Use a timeout to prevent race condition between any active focus and this one
@@ -53,10 +58,6 @@ export function Card(props: CardProps) {
       return () => clearTimeout(timeout);
     }
   }, [editable]);
-
-  function handleDragStart(e: React.DragEvent) {
-    e.dataTransfer.setData("CardId", id);
-  }
 
   return (
     <>

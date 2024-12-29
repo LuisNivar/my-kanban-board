@@ -6,8 +6,8 @@ export type ColumProps = {
 };
 
 export type ItemProps = {
-  title: string;
-  columnName: string;
+  text: string;
+  columnName: ColumProps["name"];
   id: string;
   date: string;
   tags: Tag;
@@ -36,11 +36,11 @@ export type TagSelectorProps = {
 
 export type DropIndicatorProps = {
   beforeId?: string | null;
-  currColumn: string;
+  currColumn: ColumProps["name"];
 };
 
 export type AddCardProps = {
-  columnName: string;
+  columnName: ColumProps["name"];
 };
 
 type AddCardAction = {
@@ -50,18 +50,18 @@ type AddCardAction = {
 
 type DeleteCardAction = {
   type: "delete";
-  id: string;
+  id: ItemProps["id"];
 };
 
 type MoveCardAction = {
   type: "move";
-  id: string;
-  column: string;
+  id: ItemProps["id"];
+  column: ColumProps["name"];
 };
 
 type UpdateTags = {
   type: "updateTags";
-  id: string;
+  id: ItemProps["id"];
   tags: Tag;
 };
 
@@ -72,8 +72,8 @@ type UpdateAll = {
 
 type UpdateText = {
   type: "updateText";
-  id: string;
-  title: string;
+  id: ItemProps["id"];
+  text: ItemProps["text"];
 };
 
 // type Update = {

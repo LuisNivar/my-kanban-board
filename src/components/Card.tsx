@@ -11,9 +11,9 @@ import { MenuAction } from "./MenuAction";
 import { TagSelector } from "./TagSelector";
 
 export function Card(props: CardProps) {
-  const { title, id, columnName, date, tags, editable: init } = props;
+  const { text, id, columnName, date, tags, editable: init } = props;
   const [editable, setEditable] = useState(init);
-  const [text, setText] = useState(title);
+  const [inputText, setInputText] = useState(text);
   const dispatch = useContext(CardDispatchContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -23,7 +23,7 @@ export function Card(props: CardProps) {
       dispatch({
         type: "updateText",
         id,
-        title: text,
+        text,
       });
       setEditable(false);
     }
@@ -86,14 +86,14 @@ export function Card(props: CardProps) {
         {editable ? (
           <input
             className="selection:bg-teal-600 px-2 py-1 rounded border border-teal-400 focus:outline-0 bg-teal-400/20 text-sm"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
             onFocus={() => console.log("focus")}
             ref={inputRef}
             onKeyDown={handleKey}
           />
         ) : (
-          <p className="text-sm text-neutral-300">{title}</p>
+          <p className="text-sm text-neutral-300">{text}</p>
         )}
         <span className="text-xs text-neutral-500 self-end">{date}</span>
       </div>
@@ -102,10 +102,10 @@ export function Card(props: CardProps) {
 }
 
 export function AddCard({ columnName }: AddCardProps) {
-  const [text, setText] = useState("");
+  const [inputText, setInputText] = useState("");
   const [adding, setAdding] = useState(false);
   const dispatch = useContext(CardDispatchContext);
-  const isEmpty = !text.trim().length;
+  const isEmpty = !inputText.trim().length;
 
   const INITIAL_TAGS_STATE = {
     red: false,
@@ -129,7 +129,7 @@ export function AddCard({ columnName }: AddCardProps) {
 
     const newCard: ItemProps = {
       columnName,
-      title: text.trim(),
+      text: inputText.trim(),
       id: Math.random().toString(),
       date: FormatDate(new Date()),
       tags: tags,
@@ -142,7 +142,7 @@ export function AddCard({ columnName }: AddCardProps) {
 
     //reset
     setTags(INITIAL_TAGS_STATE);
-    setText("");
+    setInputText("");
     setAdding(false);
   };
 
@@ -151,7 +151,7 @@ export function AddCard({ columnName }: AddCardProps) {
       {adding ? (
         <form onSubmit={handleSubmit}>
           <textarea
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKey}
             autoFocus
             placeholder="Add new task..."

@@ -12,7 +12,7 @@ import { MenuAction } from "./MenuAction";
 import { TagSelector } from "./TagSelector";
 
 export function Card(props: CardProps) {
-  const { title, id, columnName, date, tags, order, editable: init } = props;
+  const { title, id, columnName, date, tags, editable: init } = props;
   const [editable, setEditable] = useState(init);
   const [text, setText] = useState(title);
   const dispatch = useContext(CardDispatchContext);
@@ -37,6 +37,10 @@ export function Card(props: CardProps) {
     setEditable(true);
     inputRef.current?.focus();
     inputRef.current?.select();
+  }
+
+  function handleDelete() {
+    dispatch({ type: "delete", id });
   }
 
   useLayoutEffect(() => {
@@ -69,7 +73,11 @@ export function Card(props: CardProps) {
             {tags.green && <span className="h-2 w-4 rounded bg-emerald-500" />}
             {tags.blue && <span className="h-2 w-4 rounded bg-blue-500" />}
           </div>
-          <MenuAction card={props} onRename={handleRename}>
+          <MenuAction
+            card={props}
+            onRename={handleRename}
+            onDelete={handleDelete}
+          >
             <MoreIcon className="text-lg p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400" />
           </MenuAction>
         </div>
@@ -117,6 +125,7 @@ export function AddCard({ columnName }: AddCardProps) {
     e.preventDefault();
 
     if (isEmpty) return;
+
     const newCard: ItemProps = {
       columnName,
       title: text.trim(),
@@ -147,7 +156,7 @@ export function AddCard({ columnName }: AddCardProps) {
             placeholder="Add new task..."
             className="w-full rounded border border-teal-400 bg-teal-400/20 p-3 text-sm text-neutral-50 focus:outline-0"
           ></textarea>
-          <TagSelector state={tags} setTags={setTags} />
+          {/* <TagSelector state={tags} setTags={setTags} /> */}
 
           <div className="mt-1.5 flex items-center justify-end gap-2">
             <button

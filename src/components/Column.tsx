@@ -17,16 +17,13 @@ export default function Column(props: ColumProps) {
 
   function handleDragLeave(e: React.DragEvent) {
     e.preventDefault();
-    setActive(false);
     clearHighlightIndicator();
+    setActive(false);
   }
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
     const cardId = e.dataTransfer.getData("CardID");
-
-    setActive(false);
-    clearHighlightIndicator();
 
     const indicator = getDropIndicators();
     const { element } = getNearestDropIndicator(e, indicator);
@@ -42,9 +39,9 @@ export default function Column(props: ColumProps) {
 
       copy = copy.filter((c) => c.id !== cardId);
 
-      const moveToBack = before === "-1";
+      const isMoveToBack = before === "-1";
 
-      if (moveToBack) {
+      if (isMoveToBack) {
         copy.push(cardToTransfer);
       } else {
         const insertAtIndex = copy.findIndex((el) => el.id === before);
@@ -58,6 +55,13 @@ export default function Column(props: ColumProps) {
         cards: copy,
       });
     }
+
+    clearHighlightIndicator();
+    setActive(false);
+  }
+
+  function getDropIndicators(): HTMLElement[] {
+    return Array.from(document.querySelectorAll(`[data-column="${name}"]`));
   }
 
   function highlightIndicator(e: React.DragEvent) {
@@ -70,10 +74,6 @@ export default function Column(props: ColumProps) {
   function clearHighlightIndicator(dropsIndicator?: HTMLElement[]) {
     const indicator = dropsIndicator || getDropIndicators();
     indicator.forEach((el) => (el.style.opacity = "0"));
-  }
-
-  function getDropIndicators(): HTMLElement[] {
-    return Array.from(document.querySelectorAll(`[data-column="${name}"]`));
   }
 
   function getNearestDropIndicator(

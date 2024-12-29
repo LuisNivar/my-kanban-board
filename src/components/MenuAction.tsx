@@ -14,18 +14,20 @@ import { GoChevronRight as ChevronIcon } from "react-icons/go";
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;
   onRename: () => void;
+  onDelete: () => void;
 };
 
 export function MenuAction({
   children,
   card,
   onRename: onRename,
+  onDelete: onDelete,
 }: MenuActionProps) {
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger>{children}</DropdownMenu.Trigger>
       <DropdownMenu.Content>
-        <CardOptions card={card} onRename={onRename} />
+        <CardOptions card={card} onRename={onRename} onDelete={onDelete} />
       </DropdownMenu.Content>
     </DropdownMenu>
   );
@@ -55,22 +57,15 @@ function CheckAction({ label, ...props }: CheckboxItemProps) {
 type CardOptionsProps = {
   card: CardProps;
   onRename: () => void;
+  onDelete: () => void;
 };
 
-function CardOptions({ card, onRename }: CardOptionsProps) {
+function CardOptions({ card, onRename, onDelete }: CardOptionsProps) {
   const dispatch = useContext(CardDispatchContext);
   const [red, setRed] = useState(card.tags.red);
   const [yellow, setYellow] = useState(card.tags.yellow);
   const [green, setGreen] = useState(card.tags.green);
   const [blue, setBlue] = useState(card.tags.blue);
-
-  const handleDelete = () => {
-    dispatch({ type: "delete", id: card.id });
-  };
-
-  const handleEdit = () => {
-    onRename();
-  };
 
   function handleChangeTags(tag: string, value: boolean) {
     dispatch({
@@ -100,44 +95,29 @@ function CardOptions({ card, onRename }: CardOptionsProps) {
   return (
     <>
       <Action
-        onClick={() => handleEdit()}
+        onClick={() => onRename()}
         icon={<EditIcon />}
         label="Edit"
         variant="default"
       />
 
       <Action
-        onClick={() => handleDelete()}
+        onClick={() => onDelete()}
         icon={<TrashIcon />}
         label="Delete"
         variant="danger"
       />
 
-      {/* 
-      TODO: Refactor */}
-      <DropdownMenu.SubMenu>
-        <DropdownMenu.SubTrigger>
-          <span className="flex w-full items-center justify-between cursor-default">
-            Tags
-            <ChevronIcon />
-          </span>
-        </DropdownMenu.SubTrigger>
-        <DropdownMenu.SubContent>
-          <CheckAction checked={red} onCheckedChange={setRed} label="Red" />
-          <CheckAction
-            checked={yellow}
-            onCheckedChange={setYellow}
-            label="Yellow"
-          />
-          <CheckAction
-            checked={green}
-            onCheckedChange={setGreen}
-            label="Green"
-          />
-          <CheckAction checked={blue} onCheckedChange={setBlue} label="Blue" />
-        </DropdownMenu.SubContent>
-      </DropdownMenu.SubMenu>
-
+      <SubMenuAction lable="Tags">
+        <CheckAction checked={red} onCheckedChange={setRed} label="Red" />
+        <CheckAction
+          checked={yellow}
+          onCheckedChange={setYellow}
+          label="Yellow"
+        />
+        <CheckAction checked={green} onCheckedChange={setGreen} label="Green" />
+        <CheckAction checked={blue} onCheckedChange={setBlue} label="Blue" />
+      </SubMenuAction>
       {IS_DEV && (
         <>
           <DropdownMenu.Separator />
@@ -151,5 +131,23 @@ function CardOptions({ card, onRename }: CardOptionsProps) {
         </>
       )}
     </>
+  );
+}
+
+type SubMenuActionProps = PropsWithChildren<{
+  lable: string;
+}>;
+
+function SubMenuAction({ children, lable }: SubMenuActionProps) {
+  return (
+    <DropdownMenu.SubMenu>
+      <DropdownMenu.SubTrigger>
+        <span className="flex w-full items-center justify-between cursor-default">
+          {lable}
+          <ChevronIcon />
+        </span>
+      </DropdownMenu.SubTrigger>
+      <DropdownMenu.SubContent>{children}</DropdownMenu.SubContent>
+    </DropdownMenu.SubMenu>
   );
 }

@@ -23,7 +23,7 @@ export function Card(props: CardProps) {
       dispatch({
         type: "updateText",
         id,
-        text,
+        text: inputText,
       });
       setEditable(false);
     }
@@ -69,10 +69,10 @@ export function Card(props: CardProps) {
       >
         <div className="flex w-full items-center justify-between">
           <div className="flex gap-1">
-            {tags.red && <span className="h-2 w-4 rounded bg-rose-500" />}
-            {tags.yellow && <span className="h-2 w-4 rounded bg-yellow-500" />}
-            {tags.green && <span className="h-2 w-4 rounded bg-emerald-500" />}
-            {tags.blue && <span className="h-2 w-4 rounded bg-blue-500" />}
+            {tags.red && <span className="h-2 w-6 rounded bg-rose-500" />}
+            {tags.yellow && <span className="h-2 w-6 rounded bg-yellow-500" />}
+            {tags.green && <span className="h-2 w-6 rounded bg-emerald-500" />}
+            {tags.blue && <span className="h-2 w-6 rounded bg-blue-500" />}
           </div>
           <MenuAction
             card={props}

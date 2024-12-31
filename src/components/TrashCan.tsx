@@ -31,7 +31,7 @@ export default function TrashCan() {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`mt-12 flex flex-col max-h-56 aspect-square items-center justify-center rounded border text-3xl ${
+      className={`mt-[54px] flex flex-col max-h-56 aspect-square items-center justify-center rounded border text-3xl ${
         active
           ? "border-red-800 bg-red-800/20 text-red-500"
           : "border-neutral-700 bg-neutral-800 text-neutral-400"

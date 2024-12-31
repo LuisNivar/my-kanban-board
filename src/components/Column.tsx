@@ -1,8 +1,11 @@
 import { useContext, useState } from "react";
 import { CardDispatchContext } from "../Context";
 import { ColumProps, ItemProps } from "../types";
-import { AddCard, Card } from "./Card";
+import { Card } from "./Card";
 import DropIndicator from "./DropIndicator";
+import { GoPlus as AddIcon } from "react-icons/go";
+import Dialog from "./UI/Dialog";
+import { CardDialog } from "./CardDialog";
 
 export default function Column(props: ColumProps) {
   const { title, headingColor, cards, name } = props;
@@ -117,18 +120,18 @@ export default function Column(props: ColumProps) {
   const filteredCards = cards.filter((c: ItemProps) => c.columnName === name);
 
   return (
-    <div className="w-full">
-      <div className="px-3 py-2 rounded cursor-default bg-neutral-800/50 mb-1 gap-2 flex items-center justify-between">
+    <div className="flex flex-col gap-2 w-full h-full">
+      <header className="px-3 py-2 rounded cursor-default bg-neutral-800/50 gap-4 flex items-center justify-center">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
         <span className="text-center text-sm text-neutral-400">
           {filteredCards.length}
         </span>
-      </div>
+      </header>
       <div
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`rounded h-full w-full transition-colors ${
+        className={`rounded h-[75vh] overflow-y-auto scroll-smooth w-full transition-colors ${
           active ? "bg-neutral-800/50" : "bg-neutral-800/10"
         }`}
       >
@@ -137,8 +140,13 @@ export default function Column(props: ColumProps) {
         ))}
 
         <DropIndicator beforeId={null} currColumn={name} />
-        <AddCard columnName={name} />
       </div>
+      <CardDialog column={name}>
+        <button className="flex justify-center text-sm items-center gap-2 w-full px-3 py-2 rounded hover:bg-neutral-600/20 text-neutral-400 hover:text-neutral-100 bg-neutral-800/50">
+          New Task
+          <AddIcon />
+        </button>
+      </CardDialog>
     </div>
   );
 }

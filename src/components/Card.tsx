@@ -1,14 +1,9 @@
 import React, { useContext, useLayoutEffect, useRef, useState } from "react";
-import {
-  GoPlus as AddIcon,
-  GoKebabHorizontal as MoreIcon,
-} from "react-icons/go";
+import { GoKebabHorizontal as MoreIcon } from "react-icons/go";
 import { CardDispatchContext } from "../Context";
-import { AddCardProps, CardProps, ItemProps, Tag } from "../types";
-import { FormatDate } from "../utils";
+import { CardProps } from "../types";
 import DropIndicator from "./DropIndicator";
 import { MenuAction } from "./MenuAction";
-import { TagSelector } from "./TagSelector";
 
 export function Card(props: CardProps) {
   const {

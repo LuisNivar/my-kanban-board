@@ -2,12 +2,16 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { PropsWithChildren } from "react";
 import { GoX as CloseIcon } from "react-icons/go";
 
-function Dialog({ children }: PropsWithChildren) {
+function Dialog({ children }: DialogPrimitive.DialogProps) {
   return <DialogPrimitive.Root>{children}</DialogPrimitive.Root>;
 }
 
-function Trigger({ children }: PropsWithChildren) {
-  return <DialogPrimitive.Trigger asChild>{children}</DialogPrimitive.Trigger>;
+function Trigger({ children, ...props }: DialogPrimitive.DialogTriggerProps) {
+  return (
+    <DialogPrimitive.Trigger {...props} asChild>
+      {children}
+    </DialogPrimitive.Trigger>
+  );
 }
 
 export type DialogContentProps = PropsWithChildren & {

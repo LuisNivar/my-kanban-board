@@ -19,7 +19,7 @@ export function Card(props: CardProps) {
   const [editable, setEditable] = useState(init);
   const [inputText, setInputText] = useState(description);
   const dispatch = useContext(CardDispatchContext);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   //#region Handlers
   function handleKey(e: React.KeyboardEvent) {
@@ -83,8 +83,8 @@ export function Card(props: CardProps) {
         </div>
 
         {editable ? (
-          <input
-            className="selection:bg-teal-600 px-2 py-1 rounded border border-teal-400 focus:outline-0 bg-teal-400/20 text-sm"
+          <textarea
+            className="field-sizing-content selection:bg-teal-600 s px-2 py-1 rounded border border-teal-400 focus:outline-0 bg-teal-400/20 text-sm"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onFocus={() => console.log("focus")}
@@ -92,7 +92,9 @@ export function Card(props: CardProps) {
             onKeyDown={handleKey}
           />
         ) : (
-          <p className="text-sm text-neutral-300 mb-0.5">{description}</p>
+          <p className="text-sm text-neutral-300 mb-0.5 text-pretty">
+            {description}
+          </p>
         )}
         <span className="flex items-center justify-between">
           <div className="flex gap-1">

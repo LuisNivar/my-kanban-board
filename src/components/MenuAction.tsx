@@ -124,6 +124,7 @@ function CardOptions({ card, onRename, onDelete }: CardOptionsProps) {
 
           <Action
             variant="default"
+            className="text-xs text-neutral-500"
             icon={<AlertIcon />}
             label={`ID: ${card.id}`}
             disabled

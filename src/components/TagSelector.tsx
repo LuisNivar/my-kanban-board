@@ -2,10 +2,6 @@ import { useEffect } from "react";
 import { TagSelectorProps } from "../types";
 
 export function TagSelector({ state, setTags }: TagSelectorProps) {
-  useEffect(() => {
-    setTags(state);
-  }, []);
-
   return (
     <span className="flex items-center gap-1.5">
       <button

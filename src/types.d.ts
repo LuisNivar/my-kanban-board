@@ -6,7 +6,8 @@ export type ColumProps = {
 };
 
 export type ItemProps = {
-  text: string;
+  title: string;
+  description: string;
   columnName: ColumProps["name"];
   id: string;
   date: string;
@@ -73,7 +74,7 @@ type UpdateAll = {
 type UpdateText = {
   type: "updateText";
   id: ItemProps["id"];
-  text: ItemProps["text"];
+  description: ItemProps["description"];
 };
 
 // type Update = {

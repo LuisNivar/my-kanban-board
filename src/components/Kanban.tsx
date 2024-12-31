@@ -20,7 +20,7 @@ function Board() {
   return (
     <div className="grid gap-2 grid-cols-5 ">
       <Column
-        title="Backlog"
+        title="BACKLOG"
         name="backlog"
         headingColor="text-neutral-400"
         cards={cards}
@@ -32,13 +32,13 @@ function Board() {
         cards={cards}
       />
       <Column
-        title="In Progress"
+        title="IN PROGRESS"
         name="in-progress"
         headingColor="text-cyan-500"
         cards={cards}
       />
       <Column
-        title="Complete"
+        title="COMPLETE"
         name="complete"
         headingColor="text-emerald-500"
         cards={cards}

@@ -22,11 +22,10 @@ function Content({ children, title, description }: DialogContentProps) {
         <DialogPrimitive.Title className="mb-3 cursor-default text-lg font-medium text-neutral-200">
           {title}
         </DialogPrimitive.Title>
-        {description && (
-          <DialogPrimitive.Description className="mb-5 text-base leading-normal text-neutral-300 ">
-            {description}
-          </DialogPrimitive.Description>
-        )}
+
+        <DialogPrimitive.Description className="mb-5 text-base leading-normal text-neutral-300 ">
+          {description}
+        </DialogPrimitive.Description>
         {children}
         <DialogPrimitive.Close asChild>
           <button

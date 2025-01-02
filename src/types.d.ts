@@ -77,11 +77,11 @@ type UpdateText = {
   description: ItemProps["description"];
 };
 
-// type Update = {
-//   type: "update"
-//   id: string;
-//   props : Omit<CardProps, "id">
-// }
+type Update = {
+  type: "update";
+  id: string;
+  value: Omit<ItemProps, "id">;
+};
 
 export type ActionsType =
   | AddCardAction
@@ -89,4 +89,5 @@ export type ActionsType =
   | MoveCardAction
   | UpdateTags
   | UpdateText
-  | UpdateAll;
+  | UpdateAll
+  | Update;

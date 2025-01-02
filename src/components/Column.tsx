@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
+import { GoPlus as AddIcon } from "react-icons/go";
 import { CardDispatchContext } from "../Context";
 import { ColumProps, ItemProps } from "../types";
 import { Card } from "./Card";
-import DropIndicator from "./DropIndicator";
-import { GoPlus as AddIcon } from "react-icons/go";
-import Dialog from "./UI/Dialog";
 import { CardDialog } from "./CardDialog";
+import DropIndicator from "./DropIndicator";
 
 export default function Column(props: ColumProps) {
   const { title, headingColor, cards, name } = props;

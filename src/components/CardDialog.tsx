@@ -1,18 +1,27 @@
 import { nanoid } from "nanoid";
-import { PropsWithChildren, useContext, useState } from "react";
+import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { CardDispatchContext } from "../Context";
-import { ColumProps, ItemProps, Tag } from "../types";
+import { CardProps, ColumProps, ItemProps, Tag } from "../types";
 import { FormatDate } from "../utils";
 import { TagSelector } from "./TagSelector";
-import Dialog from "./UI/Dialog";
+import Dialog, { DialogProps } from "./UI/Dialog";
 
-export type CardDialogProps = PropsWithChildren & {
+export type CardDialogProps = DialogProps & {
   column: ColumProps["name"];
+  card?: CardProps;
 };
 
-export function CardDialog({ children, column }: CardDialogProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+export function CardDialog({
+  children,
+  column,
+  card,
+  ...props
+}: CardDialogProps) {
+  const isEditing = !!card;
+  const [title, setTitle] = useState(isEditing ? card.title : "");
+  const [description, setDescription] = useState(
+    isEditing ? card.description : ""
+  );
   const dispatch = useContext(CardDispatchContext);
   const isEmpty = !title;
 
@@ -23,9 +32,26 @@ export function CardDialog({ children, column }: CardDialogProps) {
     blue: false,
   };
 
-  const [tags, setTags] = useState<Tag>(INITIAL_TAGS_STATE);
+  const [tags, setTags] = useState<Tag>(
+    isEditing ? card.tags : INITIAL_TAGS_STATE
+  );
 
-  function handleSave() {
+  useEffect(() => {
+    if (!isEditing) return;
+    setTags(card.tags);
+    setDescription(card.description);
+    setTitle(card.title);
+  }, [card]);
+
+  function handleOk() {
+    if (isEditing) {
+      Edit();
+    } else {
+      Save();
+    }
+  }
+
+  function Save() {
     if (isEmpty) return;
 
     const newCard: ItemProps = {
@@ -45,13 +71,35 @@ export function CardDialog({ children, column }: CardDialogProps) {
     Initialize();
   }
 
+  function Edit() {
+    if (!isEditing) return;
+    if (isEmpty) return;
+
+    const newProps = {
+      title: title,
+      columnName: column,
+      description: description.trim(),
+      date: FormatDate(new Date()),
+      tags: tags,
+    };
+
+    dispatch({
+      type: "update",
+      id: card.id,
+      value: newProps,
+    });
+
+    Initialize();
+  }
+
   function Initialize() {
     setTags(INITIAL_TAGS_STATE);
     setDescription("");
     setTitle("");
   }
+
   return (
-    <Dialog>
+    <Dialog {...props}>
       <Dialog.Trigger onClick={() => Initialize()}>{children}</Dialog.Trigger>
       <Dialog.Content title="New task">
         <div className="flex flex-col gap-3">
@@ -63,25 +111,28 @@ export function CardDialog({ children, column }: CardDialogProps) {
               placeholder="New task..."
               autoFocus
               spellCheck="false"
+              value={title}
             />
           </Field>
           <Field label="Description" htmlFor="description">
             <textarea
-              className="max-h-24 placeholder:text-neutral-500 inline-flex w-full py-2 flex-1 border border-neutral-600 bg-neutral-900/60 items-center justify-center rounded px-3 text-sm text outline-none selection:bg-teal-600"
+              className="max-h-24 h-16 placeholder:text-neutral-500 inline-flex w-full py-2 flex-1 border border-neutral-600 bg-neutral-900/60 items-center justify-center rounded px-3 text-sm text outline-none selection:bg-teal-600"
               id="description"
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe your task. **Optional**"
               spellCheck="false"
+              value={description}
             />
           </Field>
           <Field label="Tags" htmlFor="tags">
             <TagSelector state={tags} setTags={setTags} />
           </Field>
+
           <Dialog.Button
-            className="self-end w-fit"
-            onClick={() => handleSave()}
+            className="mt-3 self-end w-fit"
+            onClick={() => handleOk()}
           >
-            Save changes
+            {isEditing ? "Save changes" : "Save"}
           </Dialog.Button>
         </div>
       </Dialog.Content>

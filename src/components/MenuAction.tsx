@@ -10,26 +10,42 @@ import { CardProps } from "../types";
 import { CardDispatchContext } from "../Context";
 import { IS_DEV } from "../utils";
 import { GoChevronRight as ChevronIcon } from "react-icons/go";
+import { CardDialog } from "./CardDialog";
 
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;
-  onRename: () => void;
+  onEdit: () => void;
   onDelete: () => void;
 };
 
 export function MenuAction({
   children,
   card,
-  onRename: onRename,
+  onEdit: onEdit,
   onDelete: onDelete,
 }: MenuActionProps) {
+  const [openDialog, setOpenDialog] = useState(false);
+
   return (
-    <DropdownMenu>
-      <DropdownMenu.Trigger>{children}</DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <CardOptions card={card} onRename={onRename} onDelete={onDelete} />
-      </DropdownMenu.Content>
-    </DropdownMenu>
+    <>
+      <DropdownMenu>
+        <DropdownMenu.Trigger>{children}</DropdownMenu.Trigger>
+        <DropdownMenu.Content>
+          <CardOptions
+            card={card}
+            onEdit={() => setOpenDialog(true)}
+            onDelete={onDelete}
+          />
+        </DropdownMenu.Content>
+      </DropdownMenu>
+
+      <CardDialog
+        open={openDialog}
+        onOpenChange={setOpenDialog}
+        column={card.columnName}
+        card={card}
+      ></CardDialog>
+    </>
   );
 }
 
@@ -56,11 +72,11 @@ function CheckAction({ label, ...props }: CheckboxItemProps) {
 
 type CardOptionsProps = {
   card: CardProps;
-  onRename: () => void;
+  onEdit: () => void;
   onDelete: () => void;
 };
 
-function CardOptions({ card, onRename, onDelete }: CardOptionsProps) {
+function CardOptions({ card, onEdit, onDelete }: CardOptionsProps) {
   const dispatch = useContext(CardDispatchContext);
   const [red, setRed] = useState(card.tags.red);
   const [yellow, setYellow] = useState(card.tags.yellow);
@@ -95,7 +111,7 @@ function CardOptions({ card, onRename, onDelete }: CardOptionsProps) {
   return (
     <>
       <Action
-        onClick={() => onRename()}
+        onClick={() => onEdit()}
         icon={<EditIcon />}
         label="Edit"
         variant="default"
@@ -124,6 +140,7 @@ function CardOptions({ card, onRename, onDelete }: CardOptionsProps) {
 
           <Action
             variant="default"
+            className="text-xs text-neutral-500"
             icon={<AlertIcon />}
             label={`ID: ${card.id}`}
             disabled

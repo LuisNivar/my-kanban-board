@@ -122,7 +122,15 @@ function reducer(cards: ItemProps[], action: ActionsType) {
     case "updateAll": {
       return [...action.cards];
     }
-
+    case "update": {
+      return cards.map((card) => {
+        if (card.id === action.id) {
+          return { id: action.id, ...action.value };
+        } else {
+          return card;
+        }
+      });
+    }
     default:
       throw Error("Unknown action: " + action);
   }

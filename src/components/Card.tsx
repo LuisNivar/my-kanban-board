@@ -75,7 +75,7 @@ export function Card(props: CardProps) {
           <h1 className="text-neutral-300 text-sm font-medium">{title}</h1>
           <MenuAction
             card={props}
-            onRename={handleRename}
+            onEdit={handleRename}
             onDelete={handleDelete}
           >
             <MoreIcon className="text-lg p-0.5 rounded hover:bg-neutral-600 text-neutral-600 cursor-pointer hover:text-neutral-400" />

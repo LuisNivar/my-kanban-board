@@ -7,7 +7,7 @@ import TrashCan from "./TrashCan";
 export function Kanban() {
   return (
     <CardProvider>
-      <div className="h-screen w-full py-6 px-12 bg-neutral-900 text-neutral-100">
+      <div className="h-screen w-full p-6 bg-neutral-900 text-neutral-100">
         <Board />
       </div>
     </CardProvider>
@@ -18,7 +18,7 @@ function Board() {
   const cards = useContext(CardContext);
 
   return (
-    <div className="grid gap-2 grid-cols-5 ">
+    <main className="grid gap-2 grid-cols-5 ">
       <Column
         title="BACKLOG"
         name="backlog"
@@ -44,6 +44,6 @@ function Board() {
         cards={cards}
       />
       <TrashCan />
-    </div>
+    </main>
   );
 }

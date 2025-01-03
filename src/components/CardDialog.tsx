@@ -101,7 +101,7 @@ export function CardDialog({
   return (
     <Dialog {...props}>
       <Dialog.Trigger onClick={() => Initialize()}>{children}</Dialog.Trigger>
-      <Dialog.Content title="New task">
+      <Dialog.Content title={isEditing ? "Edit Task" : "New Task"}>
         <div className="flex flex-col gap-3">
           <Field label="Title" htmlFor="title">
             <input

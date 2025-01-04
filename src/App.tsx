@@ -1,12 +1,12 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import { Kanban } from "./components/Kanban";
 import { Sidebar } from "./components/Sidebar";
 
 function App() {
   return (
-    <div className="flex">
+    <div className="flex items-center">
       <Sidebar />
-      <Kanban />
+      <Outlet />
     </div>
   );
 }

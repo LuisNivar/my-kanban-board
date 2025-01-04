@@ -8,13 +8,13 @@ export function Kanban() {
   return (
     <CardProvider>
       <div className="h-screen w-full p-6 bg-neutral-900 text-neutral-100">
-        <Board />
+        <Columns />
       </div>
     </CardProvider>
   );
 }
 
-function Board() {
+function Columns() {
   const cards = useContext(CardContext);
 
   return (

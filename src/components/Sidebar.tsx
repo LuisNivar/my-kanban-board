@@ -5,49 +5,45 @@ import {
 } from "react-icons/go";
 import { IoBriefcaseOutline as WorkIcon } from "react-icons/io5";
 import Tooltip from "./UI/Tooltip";
-import { ComponentPropsWithoutRef } from "react";
+import { Link, LinkProps } from "react-router-dom";
 
 export function Sidebar() {
   return (
-    <nav className="flex justify-between text-[22px] text-neutral-400 flex-col items-center gap-3 py-3 px-2 rounded-lg h-screen bg-neutral-800">
-      <div className="flex flex-col items-center gap-3">
+    <div className="flex justify-between text-[22px] text-neutral-400 flex-col items-center gap-3 py-3 px-2 rounded-lg h-screen bg-neutral-800">
+      <nav className="flex flex-col items-center gap-3">
         <span className=" cursor-default bg-yellow-500 text-xs font-medium text-neutral-800 px-2 py-1 rounded-md">
           WIP
         </span>
         <Separator />
 
-        <SidebarItem active icon={<HomeIcon />} tooltip="Home Board" />
-        <SidebarItem icon={<WorkIcon />} tooltip="Work Board" />
+        <LinkItem
+          to={"/board/home"}
+          active
+          icon={<HomeIcon />}
+          tooltip="Home"
+        />
+        <LinkItem to={"/board/work"} icon={<WorkIcon />} tooltip="Work" />
+        <AddButtonItem />
+      </nav>
 
-        <Tooltip text="Add new board">
-          <button className=" text-lg transition-colors border hover:bg-neutral-300 hover:border-neutral-300 hover:text-neutral-800 border-neutral-600 rounded-md mt-2 p-0.5">
-            <AddIcon />
-          </button>
-        </Tooltip>
-      </div>
-
-      <div>
+      <div className="flex flex-col">
         <Separator />
-        <Tooltip text="Settings">
-          <button className="group transition-colors hover:rotate-180 hover:bg-neutral-700/60 rounded-lg p-2.5">
-            <SettingIcon className="transition-transform group-hover:rotate-45 " />
-          </button>
-        </Tooltip>
+        <SettingsItem />
       </div>
-    </nav>
+    </div>
   );
 }
 
-type SidebarItemProps = ComponentPropsWithoutRef<"button"> & {
+type LinkItemProps = LinkProps & {
   icon: React.ReactNode;
   tooltip: string;
   active?: boolean;
 };
 
-function SidebarItem({ icon, tooltip, active, ...props }: SidebarItemProps) {
+function LinkItem({ icon, tooltip, active, ...props }: LinkItemProps) {
   return (
     <Tooltip text={tooltip}>
-      <button
+      <Link
         {...props}
         className={`transition-colors rounded-lg p-2.5 ${
           active
@@ -56,7 +52,30 @@ function SidebarItem({ icon, tooltip, active, ...props }: SidebarItemProps) {
         }  `}
       >
         {icon}
+      </Link>
+    </Tooltip>
+  );
+}
+
+function AddButtonItem() {
+  return (
+    <Tooltip text="Add new board">
+      <button className=" text-lg transition-colors border hover:bg-neutral-300 hover:border-neutral-300 hover:text-neutral-800 border-neutral-600 rounded-md mt-2 p-0.5">
+        <AddIcon />
       </button>
+    </Tooltip>
+  );
+}
+
+function SettingsItem() {
+  return (
+    <Tooltip text="Settings">
+      <Link
+        to={"/settings"}
+        className="group transition-colors hover:rotate-180 hover:bg-neutral-700/60 rounded-lg p-2.5"
+      >
+        <SettingIcon className="transition-transform group-hover:rotate-45" />
+      </Link>
     </Tooltip>
   );
 }

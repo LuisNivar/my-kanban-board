@@ -4,8 +4,8 @@ import {
   GoGear as SettingIcon,
 } from "react-icons/go";
 import { IoBriefcaseOutline as WorkIcon } from "react-icons/io5";
+import { Link, LinkProps, useLocation } from "react-router-dom";
 import Tooltip from "./UI/Tooltip";
-import { Link, LinkProps } from "react-router-dom";
 
 export function Sidebar() {
   return (
@@ -16,13 +16,8 @@ export function Sidebar() {
         </span>
         <Separator />
 
-        <LinkItem
-          to={"/board/home"}
-          active
-          icon={<HomeIcon />}
-          tooltip="Home"
-        />
-        <LinkItem to={"/board/work"} icon={<WorkIcon />} tooltip="Work" />
+        <LinkItem to={"/board/home"} icon={<HomeIcon />} name="home" />
+        <LinkItem to={"/board/work"} icon={<WorkIcon />} name="work" />
         <AddButtonItem />
       </nav>
 
@@ -36,17 +31,19 @@ export function Sidebar() {
 
 type LinkItemProps = LinkProps & {
   icon: React.ReactNode;
-  tooltip: string;
-  active?: boolean;
+  name: string;
 };
 
-function LinkItem({ icon, tooltip, active, ...props }: LinkItemProps) {
+function LinkItem({ icon, name, ...props }: LinkItemProps) {
+  const { pathname } = useLocation();
+  const isActive = pathname.includes(name);
+
   return (
-    <Tooltip text={tooltip}>
+    <Tooltip text={name}>
       <Link
         {...props}
         className={`transition-colors rounded-lg p-2.5 ${
-          active
+          isActive
             ? "text-neutral-100 bg-teal-700 hover:bg-teal-600"
             : "text-neutral-400  hover:bg-neutral-700/60"
         }  `}

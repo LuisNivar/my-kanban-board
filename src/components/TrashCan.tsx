@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { GoTrash as TrashIcon } from "react-icons/go";
 import { HiOutlineFire as FireIcon } from "react-icons/hi2";
-import { CardDispatchContext } from "../Context";
+import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
+import { useParams } from "react-router-dom";
 
 export default function TrashCan() {
   const [active, setActive] = useState(false);
   const dispatch = useContext(CardDispatchContext);
+  const { id } = useParams();
 
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
@@ -22,6 +24,7 @@ export default function TrashCan() {
     dispatch({
       type: "delete",
       id: cardId,
+      board: id ?? DEFAULT_BOARD,
     });
     setActive(false);
   }

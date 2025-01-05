@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
-import { CardContext, CardDispatchContext } from "./Context";
-import { ActionsType, ItemProps } from "./types";
+import { CardContext, CardDispatchContext, EMPTY_BOARD } from "./Context";
+import { ActionsType, BoardProps, ItemProps } from "./types";
 
 //TODO: Create tutorials cars
 const INITIAL_CARDS: ItemProps[] = [
@@ -84,52 +84,89 @@ const INITIAL_CARDS: ItemProps[] = [
   },
 ];
 
-function reducer(cards: ItemProps[], action: ActionsType) {
+function reducer(state: BoardProps, action: ActionsType): BoardProps {
   switch (action.type) {
     case "add": {
-      return [...cards, action.newCard];
+      const { board, newCard } = action;
+      return {
+        ...state,
+        [board]: [...(state[board] || []), newCard],
+      };
     }
     case "delete": {
-      return cards.filter((c) => c.id !== action.id);
+      const { board, id } = action;
+      return {
+        ...state,
+        [board]: (state[board] || []).filter((c) => c.id !== id),
+      };
     }
     case "move": {
-      return cards.map((card) => {
-        if (card.id === action.id) {
-          return { ...card, columnName: action.column };
-        } else {
-          return card;
-        }
-      });
+      const { board, column, id } = action;
+      return {
+        ...state,
+        [board]: state[board].map((card) => {
+          if (card.id === id) {
+            return { ...card, columnName: column };
+          } else {
+            return card;
+          }
+        }),
+      };
     }
     case "updateTags": {
-      return cards.map((card) => {
-        if (card.id === action.id) {
-          return { ...card, tags: action.tags };
-        } else {
-          return card;
-        }
-      });
+      const { board, tags, id } = action;
+      return {
+        ...state,
+        [board]: state[board].map((card) => {
+          if (card.id === id) {
+            return { ...card, tags: tags };
+          } else {
+            return card;
+          }
+        }),
+      };
     }
     case "updateText": {
-      return cards.map((card) => {
-        if (card.id === action.id) {
-          return { ...card, description: action.description };
-        } else {
-          return card;
-        }
-      });
+      const { board, description, id } = action;
+      return {
+        ...state,
+        [board]: state[board].map((card) => {
+          if (card.id === id) {
+            return { ...card, description: description };
+          } else {
+            return card;
+          }
+        }),
+      };
     }
-    case "updateAll": {
-      return [...action.cards];
+    case "updateItemsBoard": {
+      const { board, cards } = action;
+      if (!cards) state;
+      return { ...state, [board]: [...(cards || [])] };
+    }
+    case "updateBoards": {
+      const { boards } = action;
+      return boards;
     }
     case "update": {
-      return cards.map((card) => {
-        if (card.id === action.id) {
-          return { id: action.id, ...action.value };
-        } else {
-          return card;
-        }
-      });
+      const { board, value } = action;
+      return {
+        ...state,
+        [board]: state[board].map((card) => {
+          if (card.id === action.id) {
+            return { id: action.id, ...value };
+          } else {
+            return card;
+          }
+        }),
+      };
+    }
+    case "addBoard": {
+      const { board } = action;
+      return {
+        ...state,
+        [board]: [],
+      };
     }
     default:
       throw Error("Unknown action: " + action);
@@ -141,30 +178,32 @@ type CardProviderProps = {
 };
 
 export function CardProvider({ children }: CardProviderProps) {
-  const [cards, dispatch] = useReducer(reducer, []);
+  const [board, dispatch] = useReducer(reducer, EMPTY_BOARD);
   const [hasChecked, setHasChecked] = useState(false);
 
   // UPDATE LocalStorage
   useEffect(() => {
     if (hasChecked) {
-      localStorage.setItem("cards", JSON.stringify(cards));
+      localStorage.setItem("board", JSON.stringify(board));
     }
-  }, [cards]);
+  }, [board]);
 
-  // INITIALIZE Cards
+  // INITIALIZE Boards
   useEffect(() => {
-    const cardsLoads = localStorage.getItem("cards");
-    const initCard = cardsLoads ? JSON.parse(cardsLoads) : [];
+    const boardLoad = localStorage.getItem("board");
+    const initBoard: BoardProps = boardLoad
+      ? JSON.parse(boardLoad)
+      : EMPTY_BOARD;
 
     dispatch({
-      type: "updateAll",
-      cards: initCard,
+      type: "updateBoards",
+      boards: initBoard,
     });
     setHasChecked(true);
   }, []);
 
   return (
-    <CardContext.Provider value={cards}>
+    <CardContext.Provider value={board}>
       <CardDispatchContext.Provider value={dispatch}>
         {children}
       </CardDispatchContext.Provider>

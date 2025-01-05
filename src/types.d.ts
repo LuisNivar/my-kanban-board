@@ -14,6 +14,10 @@ export type ItemProps = {
   tags: Tag;
 };
 
+type BoardProps = {
+  [id: string]: ItemProps[];
+};
+
 export type CardProps = ItemProps & {
   editable: boolean | false;
 };
@@ -42,45 +46,63 @@ export type DropIndicatorProps = {
 
 export type AddCardProps = {
   columnName: ColumProps["name"];
+  board: string;
 };
 
 type AddCardAction = {
   type: "add";
   newCard: ItemProps;
+  board: string;
 };
 
 type DeleteCardAction = {
   type: "delete";
   id: ItemProps["id"];
+  board: string;
 };
 
 type MoveCardAction = {
   type: "move";
   id: ItemProps["id"];
   column: ColumProps["name"];
+  board: string;
 };
 
 type UpdateTags = {
   type: "updateTags";
   id: ItemProps["id"];
   tags: Tag;
+  board: string;
 };
 
-type UpdateAll = {
-  type: "updateAll";
+type UpdateItemBoard = {
+  type: "updateItemsBoard";
   cards: ItemProps[];
+  board: string;
 };
 
 type UpdateText = {
   type: "updateText";
   id: ItemProps["id"];
   description: ItemProps["description"];
+  board: string;
+};
+
+type AddBoard = {
+  type: "addBoard";
+  board: string;
+};
+
+type UpdateBoards = {
+  type: "updateBoards";
+  boards: BoardProps;
 };
 
 type Update = {
   type: "update";
   id: string;
   value: Omit<ItemProps, "id">;
+  board: string;
 };
 
 export type ActionsType =
@@ -89,5 +111,7 @@ export type ActionsType =
   | MoveCardAction
   | UpdateTags
   | UpdateText
-  | UpdateAll
-  | Update;
+  | UpdateItemBoard
+  | Update
+  | AddBoard
+  | UpdateBoards;

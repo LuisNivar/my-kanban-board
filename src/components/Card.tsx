@@ -28,6 +28,7 @@ export function Card(props: CardProps) {
         type: "updateText",
         id,
         description: inputText,
+        board: "home",
       });
       setEditable(false);
     }
@@ -44,7 +45,7 @@ export function Card(props: CardProps) {
   }
 
   function handleDelete() {
-    dispatch({ type: "delete", id });
+    dispatch({ type: "delete", board: "home", id });
   }
 
   function handleDragStart(e: React.DragEvent) {
@@ -109,5 +110,3 @@ export function Card(props: CardProps) {
     </>
   );
 }
-
-export default { Card };

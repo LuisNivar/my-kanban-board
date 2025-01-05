@@ -11,9 +11,12 @@ export function Sidebar() {
   return (
     <div className="flex justify-between text-[22px] text-neutral-400 flex-col items-center gap-3 py-3 px-2 rounded-lg h-screen bg-neutral-800">
       <nav className="flex flex-col items-center gap-3">
-        <span className=" cursor-default bg-yellow-500 text-xs font-medium text-neutral-800 px-2 py-1 rounded-md">
+        <Link
+          to={"/"}
+          className="cursor-pointer select-none bg-yellow-500 hover:bg-yellow-300 transition-colors text-xs font-medium text-neutral-800 px-2 py-1 rounded-md"
+        >
           WIP
-        </span>
+        </Link>
         <Separator />
 
         <LinkItem to={"/board/home"} icon={<HomeIcon />} name="home" />

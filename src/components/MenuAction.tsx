@@ -1,28 +1,28 @@
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
+import {
+  GoAlert as AlertIcon,
+  GoChevronRight as ChevronIcon,
+  GoTrash as TrashIcon,
+} from "react-icons/go";
+import { GrEdit as EditIcon } from "react-icons/gr";
+import { useParams } from "react-router-dom";
+import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
+import { CardProps } from "../types";
+import { IS_DEV } from "../utils";
+import { CardDialog } from "./CardDialog";
 import DropdownMenu, {
   CheckboxItemProps,
   OptionProps,
 } from "./UI/DropdownMenu";
-import { GoTrash as TrashIcon } from "react-icons/go";
-import { GrEdit as EditIcon } from "react-icons/gr";
-import { GoAlert as AlertIcon } from "react-icons/go";
-import { CardProps } from "../types";
-import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
-import { IS_DEV } from "../utils";
-import { GoChevronRight as ChevronIcon } from "react-icons/go";
-import { CardDialog } from "./CardDialog";
-import { useParams } from "react-router-dom";
 
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;
-  onEdit: () => void;
   onDelete: () => void;
 };
 
 export function MenuAction({
   children,
   card,
-  onEdit: onEdit,
   onDelete: onDelete,
 }: MenuActionProps) {
   const [openDialog, setOpenDialog] = useState(false);

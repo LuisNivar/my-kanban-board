@@ -34,10 +34,10 @@ export default function TrashCan() {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`mt-[54px] flex flex-col max-h-56 aspect-square items-center justify-center rounded border text-3xl ${
+      className={`group border-dashed  transition-all select-none mt-12 flex flex-col max-h-56 aspect-square items-center justify-center rounded-lg border-2 text-3xl ${
         active
-          ? "border-red-800 bg-red-800/20 text-red-500"
-          : "border-neutral-700 bg-neutral-800 text-neutral-400"
+          ? " border-red-800 bg-red-800/20 text-red-500 text-[40px]"
+          : "border-neutral-700 bg-neutral-800/30 text-neutral-400"
       }`}
     >
       {active ? <FireIcon /> : <TrashIcon />}

@@ -18,10 +18,10 @@ function Separator() {
 
 function Item({ children, variant, ...props }: OptionProps) {
   const styleDefault =
-    "gap-2 text-neutral-300 group flex select-none items-center rounded-md px-3 py-2 text-sm leading-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-700/60 data-[disabled]:text-neutral-500 data-[highlighted]:text-neutral-100";
+    "gap-2 transition-colors text-neutral-300 group flex select-none items-center rounded-md px-3 py-2 text-sm leading-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-700/60 data-[disabled]:text-neutral-500 data-[highlighted]:text-neutral-100";
 
   const styleDanger =
-    "gap-2 text-red-400 group flex select-none items-center rounded-md px-3 py-2 text-sm leading-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-red-800/20 data-[disabled]:text-neutral-500 data-[highlighted]:text-red-300";
+    "gap-2 transition-colors text-red-400 group flex select-none items-center rounded-md px-3 py-2 text-sm leading-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-red-800/20 data-[disabled]:text-neutral-500 data-[highlighted]:text-red-300";
 
   return (
     <DropdownMenuPrimitive.Item
@@ -41,7 +41,7 @@ export type CheckboxItemProps =
 function CheckboxItem({ label, ...props }: CheckboxItemProps) {
   return (
     <DropdownMenuPrimitive.CheckboxItem
-      className="gap-2 text-neutral-300 group flex select-none items-center rounded-md px-6 py-2 text-sm leading-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-700/60 data-[disabled]:text-neutral-500 data-[highlighted]:text-neutral-100"
+      className="gap-2 transition-colors text-neutral-300 group flex select-none items-center rounded-md px-6 py-2 text-sm leading-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-700/60 data-[disabled]:text-neutral-500 data-[highlighted]:text-neutral-100"
       {...props}
     >
       <DropdownMenuPrimitive.ItemIndicator className="absolute left-3">

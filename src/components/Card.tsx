@@ -27,7 +27,7 @@ export function Card(props: CardProps) {
       <div
         draggable
         onDragStart={handleDragStart}
-        className="flex flex-col gap-1 cursor-grab rounded border border-neutral-700 hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing"
+        className="flex flex-col gap-1 transition-colors cursor-grab rounded-lg hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing"
       >
         <div className="flex w-full items-center justify-between">
           <h1 className="text-neutral-300 text-sm font-medium">{title}</h1>

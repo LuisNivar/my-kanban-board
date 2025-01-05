@@ -1,24 +1,31 @@
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { CardProvider } from "../CardProvider";
 import { CardContext } from "../Context";
+import { ItemProps } from "../types";
 import Column from "./Column";
 import TrashCan from "./TrashCan";
 
 export function Kanban() {
   return (
     <CardProvider>
-      <div className="h-screen w-full py-6 px-12 bg-neutral-900 text-neutral-100">
-        <Board />
+      <div className="h-screen w-full p-6 bg-neutral-900 text-neutral-100">
+        <Columns />
       </div>
     </CardProvider>
   );
 }
 
-function Board() {
-  const cards = useContext(CardContext);
+function Columns() {
+  const { id } = useParams();
+  const boards = useContext(CardContext);
+
+  //FIXME: Get a better way to to that
+  if (!id) return;
+  const cards: ItemProps[] = boards[id] ?? [];
 
   return (
-    <div className="grid gap-2 grid-cols-5 ">
+    <main className="grid gap-2 grid-cols-5 ">
       <Column
         title="BACKLOG"
         name="backlog"
@@ -44,6 +51,6 @@ function Board() {
         cards={cards}
       />
       <TrashCan />
-    </div>
+    </main>
   );
 }

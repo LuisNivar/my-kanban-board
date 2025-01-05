@@ -1,10 +1,11 @@
 import { nanoid } from "nanoid";
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
-import { CardDispatchContext } from "../Context";
+import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { CardProps, ColumProps, ItemProps, Tag } from "../types";
 import { FormatDate } from "../utils";
 import { TagSelector } from "./TagSelector";
 import Dialog, { DialogProps } from "./UI/Dialog";
+import { useParams } from "react-router-dom";
 
 export type CardDialogProps = DialogProps & {
   column: ColumProps["name"];
@@ -24,6 +25,7 @@ export function CardDialog({
   );
   const dispatch = useContext(CardDispatchContext);
   const isEmpty = !title;
+  const { id } = useParams();
 
   const INITIAL_TAGS_STATE = {
     red: false,
@@ -66,6 +68,7 @@ export function CardDialog({
     dispatch({
       type: "add",
       newCard: newCard,
+      board: id ?? DEFAULT_BOARD,
     });
 
     Initialize();
@@ -87,6 +90,7 @@ export function CardDialog({
       type: "update",
       id: card.id,
       value: newProps,
+      board: id ?? DEFAULT_BOARD,
     });
 
     Initialize();
@@ -101,7 +105,7 @@ export function CardDialog({
   return (
     <Dialog {...props}>
       <Dialog.Trigger onClick={() => Initialize()}>{children}</Dialog.Trigger>
-      <Dialog.Content title="New task">
+      <Dialog.Content title={isEditing ? "Edit Task" : "New Task"}>
         <div className="flex flex-col gap-3">
           <Field label="Title" htmlFor="title">
             <input

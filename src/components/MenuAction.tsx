@@ -7,10 +7,11 @@ import { GoTrash as TrashIcon } from "react-icons/go";
 import { GrEdit as EditIcon } from "react-icons/gr";
 import { GoAlert as AlertIcon } from "react-icons/go";
 import { CardProps } from "../types";
-import { CardDispatchContext } from "../Context";
+import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { IS_DEV } from "../utils";
 import { GoChevronRight as ChevronIcon } from "react-icons/go";
 import { CardDialog } from "./CardDialog";
+import { useParams } from "react-router-dom";
 
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;
@@ -82,12 +83,14 @@ function CardOptions({ card, onEdit, onDelete }: CardOptionsProps) {
   const [yellow, setYellow] = useState(card.tags.yellow);
   const [green, setGreen] = useState(card.tags.green);
   const [blue, setBlue] = useState(card.tags.blue);
+  const { id } = useParams();
 
   function handleChangeTags(tag: string, value: boolean) {
     dispatch({
       type: "updateTags",
       id: card.id,
       tags: { ...card.tags, [tag]: value },
+      board: id ?? DEFAULT_BOARD,
     });
   }
 
@@ -140,7 +143,7 @@ function CardOptions({ card, onEdit, onDelete }: CardOptionsProps) {
 
           <Action
             variant="default"
-            className="text-xs text-neutral-500"
+            className="ml-3 text-xs text-neutral-500"
             icon={<AlertIcon />}
             label={`ID: ${card.id}`}
             disabled

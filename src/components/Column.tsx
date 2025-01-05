@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import { GoPlus as AddIcon } from "react-icons/go";
-import { CardDispatchContext } from "../Context";
+import { useParams } from "react-router-dom";
+import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { ColumProps, ItemProps } from "../types";
 import { Card } from "./Card";
 import { CardDialog } from "./CardDialog";
 import DropIndicator from "./DropIndicator";
 
 export default function Column(props: ColumProps) {
+  const { id } = useParams();
   const { title, headingColor, cards, name } = props;
   const [active, setActive] = useState(false);
   const dispatch = useContext(CardDispatchContext);
@@ -84,7 +86,6 @@ export default function Column(props: ColumProps) {
 
     // Drop it in the same place
     if (beforeCardId === cardId) return;
-
     let copy = [...cards];
 
     // Search the card in the copy
@@ -111,8 +112,9 @@ export default function Column(props: ColumProps) {
     }
 
     dispatch({
-      type: "updateAll",
+      type: "updateItemsBoard",
       cards: copy,
+      board: id ?? DEFAULT_BOARD,
     });
   }
 
@@ -120,12 +122,11 @@ export default function Column(props: ColumProps) {
 
   return (
     <div className="flex flex-col gap-2 w-full h-full">
-      <header className="px-3 py-2 rounded cursor-default bg-neutral-800/50 gap-4 flex items-center justify-center">
-        <h3 className={`font-medium ${headingColor}`}>{title}</h3>
-        <span className="text-center text-sm text-neutral-400">
-          {filteredCards.length}
-        </span>
-      </header>
+      <ColumnHeader
+        color={headingColor}
+        title={title}
+        count={filteredCards.length}
+      />
       <div
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -140,12 +141,32 @@ export default function Column(props: ColumProps) {
 
         <DropIndicator beforeId={null} currColumn={name} />
       </div>
-      <CardDialog column={name}>
-        <button className="flex justify-center text-sm items-center gap-2 w-full px-3 py-2 rounded hover:bg-neutral-600/20 text-neutral-400 hover:text-neutral-100 bg-neutral-800/50">
-          New Task
-          <AddIcon />
-        </button>
-      </CardDialog>
+      <NewTaskButton name={name} />
     </div>
+  );
+}
+
+type ColumnHeaderProps = {
+  count: number;
+  title: string;
+  color: string;
+};
+function ColumnHeader({ color, title, count }: ColumnHeaderProps) {
+  return (
+    <header className="px-3 py-2 rounded cursor-default bg-neutral-800/50 gap-4 flex items-center justify-center">
+      <h3 className={`font-medium ${color}`}>{title}</h3>
+      <span className="text-center text-sm text-neutral-400">{count ?? 0}</span>
+    </header>
+  );
+}
+
+function NewTaskButton({ name }: { name: string }) {
+  return (
+    <CardDialog column={name}>
+      <button className="flex justify-center text-sm items-center gap-2 w-full px-3 py-2 rounded hover:bg-neutral-600/20 text-neutral-400 hover:text-neutral-100 bg-neutral-800/50">
+        New Task
+        <AddIcon />
+      </button>
+    </CardDialog>
   );
 }

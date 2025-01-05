@@ -35,7 +35,7 @@ type ColumnHeaderProps = {
 };
 function ColumnHeader({ color, title, count }: ColumnHeaderProps) {
   return (
-    <header className="px-3 py-2 rounded cursor-default bg-neutral-800/50 gap-4 flex items-center justify-center">
+    <header className="select-none px-3 py-2 rounded-lg cursor-default  bg-neutral-800 gap-4 flex items-center justify-center">
       <h3 className={`font-medium ${color}`}>{title}</h3>
       <span className="text-center text-sm text-neutral-400">{count ?? 0}</span>
     </header>
@@ -45,7 +45,7 @@ function ColumnHeader({ color, title, count }: ColumnHeaderProps) {
 function NewTaskButton({ name }: { name: string }) {
   return (
     <CardDialog column={name}>
-      <button className="flex justify-center text-sm items-center gap-2 w-full px-3 py-2 rounded hover:bg-neutral-600/20 text-neutral-400 hover:text-neutral-100 bg-neutral-800/50">
+      <button className="select-none flex transition-colors justify-center text-sm items-center gap-2 w-full px-3 py-2 rounded-lg hover:bg-neutral-700 text-neutral-300 hover:text-neutral-100 bg-neutral-800">
         New Task
         <AddIcon />
       </button>
@@ -172,8 +172,8 @@ function DragableZone({ children, name, cards }: DragableZoneProps) {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`rounded h-[75vh] overflow-y-auto scroll-smooth w-full transition-colors ${
-        active ? "bg-neutral-800/50" : "bg-neutral-800/10"
+      className={`rounded-lg px-2 h-[75vh] overflow-y-auto scroll-smooth w-full transition-colors ${
+        active ? "bg-teal-500/15" : "bg-neutral-800/30"
       }`}
     >
       {children}

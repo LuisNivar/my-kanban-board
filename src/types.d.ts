@@ -18,9 +18,7 @@ type BoardProps = {
   [id: string]: ItemProps[];
 };
 
-export type CardProps = ItemProps & {
-  editable: boolean | false;
-};
+export type CardProps = ItemProps;
 
 export type SelectTags = {
   color: "red" | "yellow" | "green" | "blue";

@@ -136,7 +136,7 @@ export default function Column(props: ColumProps) {
         }`}
       >
         {filteredCards.map((card: ItemProps) => (
-          <Card key={card.id} {...card} editable={false} />
+          <Card key={card.id} {...card} />
         ))}
 
         <DropIndicator beforeId={null} currColumn={name} />

@@ -76,7 +76,6 @@ function DragableZone({ children, name, cards }: DragableZoneProps) {
   }
 
   function handleDrop(e: React.DragEvent) {
-    e.preventDefault();
     updateCardPositions(e);
     clearHighlightIndicator();
     setActive(false);

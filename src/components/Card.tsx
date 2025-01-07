@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GoKebabHorizontal as MoreIcon } from "react-icons/go";
 import { useParams } from "react-router-dom";
 import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
@@ -9,6 +9,7 @@ import { MenuAction } from "./MenuAction";
 export function Card(props: CardProps) {
   const { title, description, id, columnName, date, tags } = props;
   const dispatch = useContext(CardDispatchContext);
+  const [isDragging, setIsDragging] = useState(false);
   const { id: boardId } = useParams();
 
   //#region Handlers
@@ -18,6 +19,12 @@ export function Card(props: CardProps) {
 
   function handleDragStart(e: React.DragEvent) {
     e.dataTransfer.setData("CardId", id);
+    setIsDragging(true);
+  }
+
+  function handleEnd(e: React.DragEvent) {
+    e.stopPropagation();
+    setIsDragging(false);
   }
   //#endregion
 
@@ -27,7 +34,10 @@ export function Card(props: CardProps) {
       <div
         draggable
         onDragStart={handleDragStart}
-        className="flex flex-col gap-1 transition-colors cursor-grab rounded-lg hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing"
+        onDragEnd={handleEnd}
+        className={`flex flex-col gap-1 transition-colors cursor-grab rounded-lg hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing ${
+          isDragging && "border-2 border-teal-600 hover:bg-neutral-800"
+        }`}
       >
         <div className="flex w-full items-center justify-between">
           <h1 className="text-neutral-300 text-sm font-medium">{title}</h1>

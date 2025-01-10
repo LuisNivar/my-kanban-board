@@ -125,10 +125,10 @@ export function CardDialog({
     <Dialog {...props}>
       <Dialog.Trigger onClick={() => Initialize()}>{children}</Dialog.Trigger>
       <Dialog.Content title={isEditing ? "Edit Task" : "New Task"}>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 w-[400px]">
           <Field label="Title" htmlFor="title">
             <input
-              className="inline-flex placeholder:text-neutral-500 w-full py-2 flex-1 border border-neutral-600 bg-neutral-900/60 items-center justify-center rounded px-3 text-sm leading-none outline-none selection:bg-teal-600"
+              className="inline-flex placeholder:text-neutral-500 py-2 flex-1 border border-neutral-600 bg-neutral-900/60 items-center justify-center rounded px-3 text-sm leading-none outline-none selection:bg-teal-600"
               id="title"
               onChange={(e) => setTitle(e.target.value)}
               placeholder="New task..."

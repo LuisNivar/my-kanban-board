@@ -1,90 +1,10 @@
 import { useEffect, useReducer, useState } from "react";
 import { CardContext, CardDispatchContext, EMPTY_BOARD } from "./Context";
-import { ActionsType, BoardProps, ItemProps } from "./types";
+import { ActionsCardsType, BoardProps } from "./types";
 
 //TODO: Create tutorials cars
-const INITIAL_CARDS: ItemProps[] = [
-  {
-    title: "Title 1",
-    description: "Something to do...",
-    columnName: "backlog",
-    id: "1",
-    date: "12/16/2024",
-    tags: {
-      red: true,
-      yellow: false,
-      green: false,
-      blue: false,
-    },
-  },
-  {
-    title: "Title 1",
-    description: "Another thing to do...",
-    columnName: "todo",
-    id: "2",
-    date: "12/16/2024",
-    tags: {
-      red: false,
-      yellow: true,
-      green: false,
-      blue: false,
-    },
-  },
-  {
-    title: "Title 1",
-    description: "A thing to figure out..",
-    columnName: "todo",
-    id: "6",
-    date: "12/17/2024",
-    tags: {
-      red: true,
-      yellow: true,
-      green: true,
-      blue: false,
-    },
-  },
-  {
-    title: "Title 1",
-    description: "A stuff to solve...",
-    columnName: "in-progress",
-    id: "3",
-    date: "12/17/2024",
-    tags: {
-      red: true,
-      yellow: false,
-      green: true,
-      blue: true,
-    },
-  },
-  {
-    title: "Title 1",
-    description: "A real thing to try",
-    columnName: "backlog",
-    id: "4",
-    date: "12/18/2024",
-    tags: {
-      red: false,
-      yellow: false,
-      green: true,
-      blue: false,
-    },
-  },
-  {
-    title: "Title 1",
-    description: "Some foods to taste...",
-    columnName: "complete",
-    id: "5",
-    date: "12/14/2024",
-    tags: {
-      red: true,
-      yellow: false,
-      green: true,
-      blue: false,
-    },
-  },
-];
 
-function reducer(state: BoardProps, action: ActionsType): BoardProps {
+function reducer(state: BoardProps, action: ActionsCardsType): BoardProps {
   switch (action.type) {
     case "add": {
       const { board, newCard } = action;
@@ -190,9 +110,9 @@ export function CardProvider({ children }: CardProviderProps) {
 
   // INITIALIZE Boards
   useEffect(() => {
-    const boardLoad = localStorage.getItem("board");
-    const initBoard: BoardProps = boardLoad
-      ? JSON.parse(boardLoad)
+    const boardLoaded = localStorage.getItem("board");
+    const initBoard: BoardProps = boardLoaded
+      ? JSON.parse(boardLoaded)
       : EMPTY_BOARD;
 
     dispatch({

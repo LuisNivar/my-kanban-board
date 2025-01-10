@@ -23,7 +23,7 @@ function Content({ children, title, description }: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className="fixed inset-0 bg-neutral-900/80 data-[state=open]:animate-overlayShow" />
-      <DialogPrimitive.Content className="fixed border-neutral-600 border left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-neutral-800 p-6 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none data-[state=open]:animate-contentShow">
+      <DialogPrimitive.Content className="fixed border-neutral-600 border left-1/2 top-1/2 max-h-[85vh] max-w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-neutral-800 p-6 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none data-[state=open]:animate-contentShow">
         <DialogPrimitive.Title className="mb-3 cursor-default text-lg font-medium text-neutral-200">
           {title}
         </DialogPrimitive.Title>

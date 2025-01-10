@@ -86,11 +86,6 @@ type UpdateText = {
   board: string;
 };
 
-type AddBoard = {
-  type: "addBoard";
-  board: string;
-};
-
 type UpdateBoards = {
   type: "updateBoards";
   boards: BoardProps;
@@ -103,7 +98,23 @@ type Update = {
   board: string;
 };
 
-export type ActionsType =
+type SideBarItemLink = {
+  name: string;
+  icon: string;
+  path: string;
+};
+
+type AddBoardAction = {
+  type: "add";
+  itemLink: SideBarItemLink;
+};
+
+type UpdateAll = {
+  type: "updateAll";
+  state: SideBarItemLink[];
+};
+
+export type ActionsCardsType =
   | AddCardAction
   | DeleteCardAction
   | MoveCardAction
@@ -113,3 +124,5 @@ export type ActionsType =
   | Update
   | AddBoard
   | UpdateBoards;
+
+export type ActionsSidebarType = AddBoardAction | UpdateAll;

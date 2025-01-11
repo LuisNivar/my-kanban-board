@@ -114,6 +114,21 @@ type UpdateAll = {
   state: SideBarItemLink[];
 };
 
+export type IconToggle = {
+  key: string;
+  icon: React.ReactNode;
+  toogled?: boolean;
+  used?: boolean;
+};
+
+export type IconToggleProps = {
+  id: string;
+  icon: React.ReactNode;
+  used?: boolean;
+  active?: boolean;
+  onChange: (id: string) => void;
+};
+
 export type ActionsCardsType =
   | AddCardAction
   | DeleteCardAction

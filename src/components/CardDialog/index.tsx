@@ -1,17 +1,17 @@
 import { nanoid } from "nanoid";
-import {
-  ChangeEvent,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
-import { CardProps, ColumProps, ItemProps, Tag } from "../types";
-import { FormatDate } from "../utils";
+import { Field } from "./Field";
+import Dialog, { DialogProps } from "../UI/Dialog";
+import { CardProps, ColumProps, ItemProps, Tag } from "../../types";
+import { CardDispatchContext, DEFAULT_BOARD } from "../../Context";
+import { FormatDate } from "../../utils";
 import { TagSelector } from "./TagSelector";
-import Dialog, { DialogProps } from "./UI/Dialog";
+import {
+  INITIAL_TAGS_STATE,
+  MAX_LENGTH_DESCRIPTION,
+  MAX_LENGTH_TITLE,
+} from "./utils";
 
 export type CardDialogProps = DialogProps & {
   column: ColumProps["name"];
@@ -36,16 +36,6 @@ export function CardDialog({
   const dispatch = useContext(CardDispatchContext);
   const isEmpty = !title;
   const { id } = useParams();
-
-  const MAX_LENGTH_DESCRIPTION = 256;
-  const MAX_LENGTH_TITLE = 20;
-
-  const INITIAL_TAGS_STATE = {
-    red: false,
-    yellow: false,
-    green: false,
-    blue: false,
-  };
 
   const [tags, setTags] = useState<Tag>(
     isEditing ? card.tags : INITIAL_TAGS_STATE
@@ -163,17 +153,5 @@ export function CardDialog({
         </div>
       </Dialog.Content>
     </Dialog>
-  );
-}
-
-type FieldProps = PropsWithChildren & { label: string; htmlFor: string };
-function Field({ children, label, htmlFor }: FieldProps) {
-  return (
-    <fieldset className="flex items-center gap-5">
-      <label className="w-24 text-right text-sm" htmlFor={htmlFor}>
-        {label}
-      </label>
-      {children}
-    </fieldset>
   );
 }

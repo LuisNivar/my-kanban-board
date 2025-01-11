@@ -3,7 +3,7 @@ import LinkItem from "./LinkItem";
 import { useContext } from "react";
 import { SidebarContext } from "../../Context";
 
-export default function Body() {
+export default function Items() {
   const state = useContext(SidebarContext);
   return (
     <>

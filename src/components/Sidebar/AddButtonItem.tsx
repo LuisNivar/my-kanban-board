@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { GoPlus as AddIcon } from "react-icons/go";
-import { BoardDialog } from "../BoardDialog";
+
 import Tooltip from "../UI/Tooltip";
+import BoardDialog from "../BoardDialog";
 
 export default function AddButtonItem() {
   const [open, setOpen] = useState(false);

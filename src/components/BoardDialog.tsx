@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { SidebarDispatchContext } from "../Context";
+import { SidebarContext, SidebarDispatchContext } from "../Context";
 import { SideBarItemLink } from "../types";
 import Dialog, { DialogProps } from "./UI/Dialog";
 import {
@@ -76,6 +76,7 @@ type IconToggle = {
   key: string;
   icon: React.ReactNode;
   toogled?: boolean;
+  used?: boolean;
 };
 
 type IconToggleProps = {
@@ -118,12 +119,26 @@ function IconButton({ icon, id, used, active, onChange }: IconToggleProps) {
   );
 }
 
+function getIconState(sidebarState: SideBarItemLink[]): IconToggle[] {
+  const prevIconState = [...INITIAL_TOGGLE_ICON_STATE];
+  const usedIcons = [...sidebarState.map((i) => i.icon)];
+
+  return prevIconState.map((i) => {
+    if (usedIcons.includes(i.key)) {
+      return { ...i, used: true };
+    } else {
+      return i;
+    }
+  });
+}
+
 type IconsGroupProps = {
   onSelection: React.Dispatch<React.SetStateAction<IconToggle | null>>;
 };
 
 function IconsGroup({ onSelection }: IconsGroupProps) {
-  const [state, setState] = useState(INITIAL_TOGGLE_ICON_STATE);
+  const sidebarState = useContext(SidebarContext);
+  const [state, setState] = useState(getIconState(sidebarState));
 
   function handleChange(key: string) {
     const iconButton = state.filter((t) => t.key === key)[0];
@@ -134,7 +149,7 @@ function IconsGroup({ onSelection }: IconsGroupProps) {
         if (t.key === key) {
           return { ...t, toogled: !t.toogled };
         } else {
-          return { ...t, toogled: false }; // t
+          return { ...t, toogled: false };
         }
       });
     });
@@ -148,6 +163,7 @@ function IconsGroup({ onSelection }: IconsGroupProps) {
             key={i.key}
             id={i.key}
             active={i.toogled}
+            used={i.used}
             icon={i.icon}
           />
         );

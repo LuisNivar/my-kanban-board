@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { CardProps } from "../types";
 import { IS_DEV } from "../utils";
-import { CardDialog } from "./CardDialog";
 import DropdownMenu, {
   CheckboxItemProps,
   OptionProps,
 } from "./UI/DropdownMenu";
 import { AlertIcon, ChevronIcon, EditIcon, TrashIcon } from "./Icons";
+import { CardDialog } from "./CardDialog";
 
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;

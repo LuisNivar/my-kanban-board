@@ -33,8 +33,6 @@ export function SidebarProvider({ children }: SidebarProviderProps) {
       ? JSON.parse(sidebarLoaded)
       : SIDEBAR_STATE;
 
-    console.log(initState);
-
     dispatch({
       type: "updateAll",
       state: initState,

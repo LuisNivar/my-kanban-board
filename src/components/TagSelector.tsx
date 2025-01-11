@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { TagSelectorProps } from "../types";
 
 export function TagSelector({ state, setTags }: TagSelectorProps) {

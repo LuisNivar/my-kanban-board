@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { GoKebabHorizontal as MoreIcon } from "react-icons/go";
 import { useParams } from "react-router-dom";
 import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { CardProps, Tag } from "../types";
 import DropIndicator from "./DropIndicator";
 import { MenuAction } from "./MenuAction";
+import { MoreIcon } from "./Icons";
 
 export function Card(props: CardProps) {
   const { title, description, id, columnName, date, tags } = props;

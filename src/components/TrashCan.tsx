@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
-import { GoTrash as TrashIcon } from "react-icons/go";
-import { HiOutlineFire as FireIcon } from "react-icons/hi2";
 import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { useParams } from "react-router-dom";
+import { FireIcon, TrashIcon } from "./Icons";
 
 export default function TrashCan() {
   const [active, setActive] = useState(false);

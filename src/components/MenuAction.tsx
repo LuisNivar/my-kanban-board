@@ -1,10 +1,4 @@
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
-import {
-  GoAlert as AlertIcon,
-  GoChevronRight as ChevronIcon,
-  GoTrash as TrashIcon,
-} from "react-icons/go";
-import { GrEdit as EditIcon } from "react-icons/gr";
 import { useParams } from "react-router-dom";
 import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { CardProps } from "../types";
@@ -14,6 +8,7 @@ import DropdownMenu, {
   CheckboxItemProps,
   OptionProps,
 } from "./UI/DropdownMenu";
+import { AlertIcon, ChevronIcon, EditIcon, TrashIcon } from "./Icons";
 
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;

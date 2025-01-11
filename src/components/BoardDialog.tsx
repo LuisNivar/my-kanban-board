@@ -1,24 +1,21 @@
-import {
-  GoRepo as BookIcon,
-  GoCalendar as CalendarIcon,
-  GoCodeSquare as CodeIcon,
-  GoDatabase as DataBaseIcon,
-  GoFileDirectory as FolderIcon,
-  GoHeart as HeartIcon,
-  GoStar as StarIcon,
-} from "react-icons/go";
-import { PiHammer as HammerIcon } from "react-icons/pi";
-import { VscGame as GameIcon } from "react-icons/vsc";
-import Dialog, { DialogProps } from "./UI/Dialog";
-
-import {
-  GoPackage as BoxIcon,
-  GoPin as PinIcon,
-  GoTrophy as TrophyIcon,
-} from "react-icons/go";
 import { useContext, useState } from "react";
 import { SidebarDispatchContext } from "../Context";
 import { SideBarItemLink } from "../types";
+import Dialog, { DialogProps } from "./UI/Dialog";
+import {
+  BookIcon,
+  BoxIcon,
+  CalendarIcon,
+  CodeIcon,
+  DataBaseIcon,
+  FolderIcon,
+  GameIcon,
+  HammerIcon,
+  HeartIcon,
+  PinIcon,
+  StarIcon,
+  TrophyIcon,
+} from "./Icons";
 
 export function BoardDialog({ children, ...props }: DialogProps) {
   const [selection, setSelection] = useState<IconToggle | null>(null);

@@ -1,8 +1,11 @@
+import { useContext } from "react";
+import { SidebarContext } from "../../Context";
 import { SidebarProvider } from "../../SidebarProvider";
 import AddButtonItem from "./AddButtonItem";
 import Footer from "./Footer";
 import Header from "./Header";
 import Items from "./Items";
+import { MAX_BOARDS } from "./utils";
 
 export default function Sidebar() {
   return (
@@ -17,10 +20,12 @@ export default function Sidebar() {
 }
 
 function Body() {
+  const items = useContext(SidebarContext);
+
   return (
     <nav className="flex grow flex-col items-center gap-3">
-      <Items />
-      <AddButtonItem />
+      <Items state={items} />
+      {items.length < MAX_BOARDS && <AddButtonItem />}
     </nav>
   );
 }

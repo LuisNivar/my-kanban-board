@@ -1,10 +1,9 @@
 import { nanoid } from "nanoid";
+import { SideBarItemLink } from "../../types";
 import LinkItem from "./LinkItem";
-import { useContext } from "react";
-import { SidebarContext } from "../../Context";
 
-export default function Items() {
-  const state = useContext(SidebarContext);
+type itemsProps = { state: SideBarItemLink[] };
+export default function Items({ state }: itemsProps) {
   return (
     <>
       {state.map((item) => (

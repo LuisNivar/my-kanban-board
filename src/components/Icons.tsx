@@ -6,6 +6,7 @@ import {
   GoFileDirectory as FolderIcon,
   GoHeart as HeartIcon,
   GoStar as StarIcon,
+  GoHome as HomeIcon,
 } from "react-icons/go";
 import { PiHammer as HammerIcon } from "react-icons/pi";
 import { VscGame as GameIcon } from "react-icons/vsc";
@@ -26,6 +27,7 @@ import {
 import { GrEdit as EditIcon } from "react-icons/gr";
 
 import { HiOutlineFire as FireIcon } from "react-icons/hi2";
+import { IoBriefcaseOutline as WorkIcon } from "react-icons/io5";
 
 export {
   AddIcon,
@@ -47,4 +49,6 @@ export {
   StarIcon,
   TrashIcon,
   TrophyIcon,
+  HomeIcon,
+  WorkIcon,
 };

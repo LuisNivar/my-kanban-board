@@ -29,6 +29,8 @@ import { GrEdit as EditIcon } from "react-icons/gr";
 import { HiOutlineFire as FireIcon } from "react-icons/hi2";
 import { IoBriefcaseOutline as WorkIcon } from "react-icons/io5";
 
+import { FiSidebar as SidebarIcon } from "react-icons/fi";
+
 export {
   AddIcon,
   AlertIcon,
@@ -51,4 +53,5 @@ export {
   TrophyIcon,
   HomeIcon,
   WorkIcon,
+  SidebarIcon,
 };

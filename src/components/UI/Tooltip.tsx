@@ -1,11 +1,10 @@
-import { PropsWithChildren } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
-type TooltipProps = PropsWithChildren & { text: string };
-function Tooltip({ children, text }: TooltipProps) {
+type TooltipProps = TooltipPrimitive.TooltipProps & { text: string };
+function Tooltip({ children, text, ...props }: TooltipProps) {
   return (
     <TooltipPrimitive.Provider>
-      <TooltipPrimitive.Root>
+      <TooltipPrimitive.Root {...props}>
         <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
         <TooltipPrimitive.Portal>
           <TooltipPrimitive.Content

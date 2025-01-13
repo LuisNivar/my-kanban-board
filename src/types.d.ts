@@ -109,6 +109,17 @@ type AddBoardAction = {
   itemLink: SideBarItemLink;
 };
 
+type RenameBoardAction = {
+  type: "rename";
+  icon: string;
+  newName: string;
+};
+
+type DeleteBoardAction = {
+  type: "delete";
+  icon: string;
+};
+
 type UpdateAll = {
   type: "updateAll";
   state: SideBarItemLink[];
@@ -140,4 +151,8 @@ export type ActionsCardsType =
   | AddBoard
   | UpdateBoards;
 
-export type ActionsSidebarType = AddBoardAction | UpdateAll;
+export type ActionsSidebarType =
+  | AddBoardAction
+  | UpdateAll
+  | RenameBoardAction
+  | DeleteBoardAction;

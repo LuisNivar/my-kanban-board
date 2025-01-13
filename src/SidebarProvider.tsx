@@ -17,6 +17,18 @@ function reducer(
     case "updateAll": {
       return action.state;
     }
+    case "rename": {
+      return state.map((b) => {
+        if (b.icon === action.icon) {
+          return { ...b, name: action.newName };
+        } else {
+          return b;
+        }
+      });
+    }
+    case "delete": {
+      return state.filter((b) => b.icon !== action.icon);
+    }
   }
 }
 

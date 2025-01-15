@@ -1,10 +1,9 @@
-import { PropsWithChildren } from "react";
-import ContextMenu from "../UI/ContextMenu";
+import ContextMenu, { ContextMenuProps } from "../UI/ContextMenu";
 
-export function SidebarMenuAction({ children }: PropsWithChildren) {
+export function SidebarMenuAction({ children, ...props }: ContextMenuProps) {
   return (
-    <ContextMenu>
-      <ContextMenu.Trigger>{children}</ContextMenu.Trigger>
+    <ContextMenu {...props}>
+      <ContextMenu.Trigger asChild>{children}</ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Item variant="default">Test</ContextMenu.Item>
         <ContextMenu.Item variant="danger">Remove</ContextMenu.Item>

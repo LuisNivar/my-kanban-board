@@ -1,16 +1,14 @@
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
 
-type ContextMenuProps = ContextMenuPrimitive.ContextMenuProps;
+export type ContextMenuProps = ContextMenuPrimitive.ContextMenuProps;
 function ContextMenu({ children, ...props }: ContextMenuProps) {
   return (
     <ContextMenuPrimitive.Root {...props}>{children}</ContextMenuPrimitive.Root>
   );
 }
 
-function Content({
-  children,
-  ...props
-}: ContextMenuPrimitive.ContextMenuContentProps) {
+type ContentProps = ContextMenuPrimitive.ContextMenuContentProps;
+function Content({ children, ...props }: ContentProps) {
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Content

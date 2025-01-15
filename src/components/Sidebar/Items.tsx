@@ -4,9 +4,10 @@ import { LinkItem } from "./LinkItem";
 import { SidebarMenuAction } from "./SidebarMenuAction";
 import Tooltip from "../UI/Tooltip";
 import { ForwardPropsToChild } from "../UI/ForwardPropsToChild";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SidebarDispatchContext } from "../../Context";
 import { useNavigate } from "react-router-dom";
+import DeleteDialog from "../DeleteDialog";
 
 type itemsProps = { state: SideBarItemLink[] };
 export default function Items({ state }: itemsProps) {
@@ -23,9 +24,14 @@ function Item(props: SideBarItemLink) {
   const { name, icon, path } = props;
   const dispatch = useContext(SidebarDispatchContext);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  //TODO: Add Delet confimation
+  //TODO: Elevate DeleteDialog
   function handleDelete() {
+    setOpen(true);
+  }
+
+  function Delete() {
     dispatch({ type: "delete", icon });
   }
 
@@ -34,12 +40,20 @@ function Item(props: SideBarItemLink) {
   }
 
   return (
-    <SidebarMenuAction onDelete={handleDelete} onEdit={handleEdit}>
-      <ForwardPropsToChild>
-        <Tooltip text={name}>
-          <LinkItem to={path} icon={icon} name={name} />
-        </Tooltip>
-      </ForwardPropsToChild>
-    </SidebarMenuAction>
+    <>
+      <SidebarMenuAction onDelete={handleDelete} onEdit={handleEdit}>
+        <ForwardPropsToChild>
+          <Tooltip text={name}>
+            <LinkItem to={path} icon={icon} name={name} />
+          </Tooltip>
+        </ForwardPropsToChild>
+      </SidebarMenuAction>
+
+      <DeleteDialog
+        onConfirm={() => Delete()}
+        open={open}
+        onOpenChange={setOpen}
+      />
+    </>
   );
 }

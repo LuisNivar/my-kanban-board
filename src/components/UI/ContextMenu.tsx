@@ -32,7 +32,7 @@ function Trigger({
   );
 }
 
-type ItemProps = ContextMenuPrimitive.ContextMenuItemProps & {
+export type ItemProps = ContextMenuPrimitive.ContextMenuItemProps & {
   variant: "default" | "danger";
 };
 function Item({ children, variant, ...props }: ItemProps) {

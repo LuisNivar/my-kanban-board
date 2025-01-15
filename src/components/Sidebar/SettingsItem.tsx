@@ -1,6 +1,6 @@
-import { GoGear as SettingIcon } from "react-icons/go";
 import { Link, useLocation } from "react-router-dom";
 import Tooltip from "../UI/Tooltip";
+import { SettingIcon } from "../Icons";
 
 export default function SettingsItem() {
   const { pathname } = useLocation();

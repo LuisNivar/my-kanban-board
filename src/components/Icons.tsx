@@ -30,7 +30,7 @@ import { HiOutlineFire as FireIcon } from "react-icons/hi2";
 import { IoBriefcaseOutline as WorkIcon } from "react-icons/io5";
 
 import { FiSidebar as SidebarIcon } from "react-icons/fi";
-
+import { GoGear as SettingIcon } from "react-icons/go";
 export {
   AddIcon,
   AlertIcon,
@@ -54,4 +54,5 @@ export {
   HomeIcon,
   WorkIcon,
   SidebarIcon,
+  SettingIcon,
 };

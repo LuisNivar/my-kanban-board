@@ -1,11 +1,11 @@
 import { nanoid } from "nanoid";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Field } from "./Field";
-import Dialog, { DialogProps } from "../UI/Dialog";
-import { CardProps, ColumProps, ItemProps, Tag } from "../../types";
 import { CardDispatchContext, DEFAULT_BOARD } from "../../Context";
+import { CardProps, ColumProps, ItemProps, Tag } from "../../types";
 import { FormatDate } from "../../utils";
+import Dialog, { DialogProps } from "../UI/Dialog";
+import { Field } from "./Field";
 import { TagSelector } from "./TagSelector";
 import {
   INITIAL_TAGS_STATE,
@@ -141,10 +141,12 @@ export function CardDialog({
           </Field>
           <span className="text-neutral-500 -mt-1 text-xs self-end">{`${lengthDescription}/${MAX_LENGTH_DESCRIPTION}`}</span>
           <Field label="Tags" htmlFor="tags">
-            <TagSelector state={tags} setTags={setTags} />
+            {/* //FIXME: Investigate the correct way to match label with the fieldset*/}
+            <TagSelector id="tags" state={tags} setTags={setTags} />
           </Field>
 
           <Dialog.Button
+            variant="default"
             className="mt-3 self-end w-fit"
             onClick={() => handleOk()}
           >

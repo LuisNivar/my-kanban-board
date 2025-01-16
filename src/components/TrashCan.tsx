@@ -40,7 +40,7 @@ export default function TrashCan() {
       }`}
     >
       {active ? <FireIcon /> : <TrashIcon />}
-      <span className="text-xs mt-3">
+      <span className="text-xs mt-3 hidden lg:block">
         {active ? "Do it!" : "Drop a card here to delete it."}
       </span>
     </div>

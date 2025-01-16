@@ -41,6 +41,7 @@ export default function BoardDialog({ children, ...props }: DialogProps) {
           <input
             className="w-full inline-flex placeholder:text-neutral-500 py-2 flex-1 border border-neutral-600 bg-neutral-900/60 items-center justify-center rounded px-3 text-sm leading-none outline-none selection:bg-teal-600"
             id="name"
+            autoComplete="on"
             onChange={(e) => setName(e.target.value)}
             placeholder="board"
             autoFocus
@@ -49,6 +50,7 @@ export default function BoardDialog({ children, ...props }: DialogProps) {
             maxLength={MAX_LENGTH_NAME}
           />
           <Dialog.Button
+            variant="default"
             className="mt-3 self-end w-fit"
             onClick={() => handleCreate()}
           >

@@ -62,6 +62,7 @@ export default function BoardItem({ icon, name }: BoardItemProps) {
       <span className="pl-4 select-none flex items-center p-2 gap-1 rounded-lg bg-neutral-700/30 text-neutral-400">
         {ICON_DICTIONARY[icon]}
         <input
+          name={name}
           className="ml-1 disabled:select-none disabled:text-neutral-400 selection:bg-teal-700 selection:text-teal-100 rounded-lg px-2 outline-0 py-0.5 text-teal-300 disabled:border-transparent border-2 border-teal-600 bg-teal-800/20 disabled:bg-transparent"
           disabled={!editing}
           value={inputName}

@@ -33,14 +33,14 @@ export default function TrashCan() {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`group border-dashed  transition-all select-none mt-12 flex flex-col max-h-56 aspect-square items-center justify-center rounded-lg border-2 text-3xl ${
+      className={`group border-dashed transition-all select-none mt-12 flex flex-col min-w-32 scroll-mx-6 w-58 lg:max-h-56 aspect-square items-center justify-center rounded-lg border-2 text-3xl ${
         active
           ? " border-red-800 bg-red-800/20 text-red-500 text-[40px]"
           : "border-neutral-700 bg-neutral-800/30 text-neutral-400"
       }`}
     >
       {active ? <FireIcon /> : <TrashIcon />}
-      <span className="text-xs mt-3 hidden lg:block">
+      <span className="text-xs mt-3 hidden xl:block">
         {active ? "Do it!" : "Drop a card here to delete it."}
       </span>
     </div>

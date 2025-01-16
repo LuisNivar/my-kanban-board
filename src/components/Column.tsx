@@ -12,7 +12,7 @@ export default function Column(props: ColumProps) {
   const filteredCards = cards.filter((c: ItemProps) => c.columnName === name);
 
   return (
-    <div className="flex flex-col gap-2 w-full h-full">
+    <div className="flex flex-col gap-2 shrink-0 grow-0 w-56 h-full">
       <ColumnHeader
         color={headingColor}
         title={title}

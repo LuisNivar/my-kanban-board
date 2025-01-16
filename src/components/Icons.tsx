@@ -1,21 +1,19 @@
 import {
   GoRepo as BookIcon,
+  GoPackage as BoxIcon,
   GoCalendar as CalendarIcon,
   GoCodeSquare as CodeIcon,
   GoDatabase as DataBaseIcon,
   GoFileDirectory as FolderIcon,
   GoHeart as HeartIcon,
-  GoStar as StarIcon,
   GoHome as HomeIcon,
+  GoPin as PinIcon,
+  GoStar as StarIcon,
+  GoTrophy as TrophyIcon,
+  GoXCircle as XCircleIcon,
 } from "react-icons/go";
 import { PiHammer as HammerIcon } from "react-icons/pi";
 import { VscGame as GameIcon } from "react-icons/vsc";
-
-import {
-  GoPackage as BoxIcon,
-  GoPin as PinIcon,
-  GoTrophy as TrophyIcon,
-} from "react-icons/go";
 
 import {
   GoPlus as AddIcon,
@@ -46,13 +44,14 @@ export {
   GameIcon,
   HammerIcon,
   HeartIcon,
+  HomeIcon,
   MoreIcon,
   PinIcon,
+  SettingIcon,
+  SidebarIcon,
   StarIcon,
   TrashIcon,
   TrophyIcon,
-  HomeIcon,
   WorkIcon,
-  SidebarIcon,
-  SettingIcon,
+  XCircleIcon,
 };

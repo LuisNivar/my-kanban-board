@@ -45,12 +45,28 @@ function Content({ children, title, description }: DialogContentProps) {
   );
 }
 
-export type DialogButtonProps = DialogPrimitive.DialogCloseProps;
-function Button(props: DialogButtonProps) {
+export type DialogButtonProps = DialogPrimitive.DialogCloseProps & {
+  variant: "default" | "secondary" | "danger";
+};
+
+function Button({ variant, ...props }: DialogButtonProps) {
+  let style;
+  switch (variant) {
+    case "danger":
+      style = "text-neutral-50 bg-red-700 hover:bg-red-600";
+      break;
+    case "secondary":
+      style = "text-neutral-300 bg-neutral-700/30 hover:bg-neutral-700";
+      break;
+    default:
+      style = "bg-neutral-50  text-neutral-900 hover:bg-neutral-200";
+      break;
+  }
+
   return (
     <DialogPrimitive.Close {...props} asChild>
       <button
-        className="inline-flex items-center justify-center rounded bg-neutral-50 px-4 py-3 text-sm font-medium leading-none text-neutral-900 hover:bg-neutral-200 focus:outline-none"
+        className={`${style} transition-colors inline-flex items-center justify-center rounded  px-4 py-3 text-sm font-medium leading-none focus:outline-none `}
         aria-label="Close"
       >
         {props.children}

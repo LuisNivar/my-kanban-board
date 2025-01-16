@@ -1,7 +1,8 @@
+import React from "react";
 import { XCircleIcon } from "./Icons";
 import Dialog, { DialogProps } from "./UI/Dialog";
 
-type DeleteDialogProps = DialogProps & { onConfirm: () => void };
+type DeleteDialogProps = DialogProps & { onConfirm: React.MouseEventHandler };
 export default function DeleteDialog({
   children,
   onConfirm,
@@ -18,7 +19,7 @@ export default function DeleteDialog({
           </span>
           <span className="flex gap-2 items-center justify-center">
             <Dialog.Button variant="secondary">Cancel</Dialog.Button>
-            <Dialog.Button onClick={() => onConfirm()} variant="danger">
+            <Dialog.Button onClick={onConfirm} variant="danger">
               Confirm
             </Dialog.Button>
           </span>

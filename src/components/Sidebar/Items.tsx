@@ -1,38 +1,47 @@
 import { nanoid } from "nanoid";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SidebarDispatchContext } from "../../Context";
 import { SideBarItemLink } from "../../types";
+import DeleteDialog from "../DeleteDialog";
+import { ForwardPropsToChild } from "../UI/ForwardPropsToChild";
+import Tooltip from "../UI/Tooltip";
 import { LinkItem } from "./LinkItem";
 import { SidebarMenuAction } from "./SidebarMenuAction";
-import Tooltip from "../UI/Tooltip";
-import { ForwardPropsToChild } from "../UI/ForwardPropsToChild";
-import { useContext, useState } from "react";
-import { SidebarDispatchContext } from "../../Context";
-import { useNavigate } from "react-router-dom";
-import DeleteDialog from "../DeleteDialog";
+
+const dataTransfer = new DataTransfer();
 
 type itemsProps = { state: SideBarItemLink[] };
 export default function Items({ state }: itemsProps) {
+  const dispatch = useContext(SidebarDispatchContext);
+  const [open, setOpen] = useState(false);
+
+  function Delete() {
+    const icon = dataTransfer.getData("icon");
+    dispatch({ type: "delete", icon });
+  }
+
   return (
     <>
       {state.map((item) => (
-        <Item key={nanoid()} {...item} />
+        <Item onOpen={setOpen} key={nanoid()} {...item} />
       ))}
+      <DeleteDialog onConfirm={Delete} open={open} onOpenChange={setOpen} />
     </>
   );
 }
 
-function Item(props: SideBarItemLink) {
-  const { name, icon, path } = props;
-  const dispatch = useContext(SidebarDispatchContext);
+type ItemsProps = SideBarItemLink & {
+  onOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+function Item(props: ItemsProps) {
+  const { name, icon, path, onOpen } = props;
+
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
 
-  //TODO: Elevate DeleteDialog
   function handleDelete() {
-    setOpen(true);
-  }
-
-  function Delete() {
-    dispatch({ type: "delete", icon });
+    dataTransfer.setData("icon", icon);
+    onOpen(true);
   }
 
   function handleEdit() {
@@ -48,12 +57,6 @@ function Item(props: SideBarItemLink) {
           </Tooltip>
         </ForwardPropsToChild>
       </SidebarMenuAction>
-
-      <DeleteDialog
-        onConfirm={() => Delete()}
-        open={open}
-        onOpenChange={setOpen}
-      />
     </>
   );
 }

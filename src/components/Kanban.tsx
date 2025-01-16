@@ -9,7 +9,7 @@ import TrashCan from "./TrashCan";
 export function Kanban() {
   return (
     <CardProvider>
-      <div className="h-screen w-full p-6 bg-neutral-900 text-neutral-100">
+      <div className="h-screen w-full px-6 py-5 overflow-x-auto bg-neutral-900 text-neutral-100">
         <Columns />
       </div>
     </CardProvider>
@@ -25,7 +25,7 @@ function Columns() {
   const cards: ItemProps[] = boards[id] ?? [];
 
   return (
-    <main className="grid gap-2 grid-cols-5 ">
+    <main className="whitespace-nowrap flex gap-2 xl:grid xl:grid-cols-5 ">
       <Column
         title="BACKLOG"
         name="backlog"

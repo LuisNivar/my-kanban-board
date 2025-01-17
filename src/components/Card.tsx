@@ -1,10 +1,11 @@
+import { formatDistance } from "date-fns";
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { CardProps, Tag } from "../types";
 import DropIndicator from "./DropIndicator";
-import { MenuAction } from "./MenuAction";
 import { MoreIcon } from "./Icons";
+import { MenuAction } from "./MenuAction";
 
 export function Card(props: CardProps) {
   const { title, description, id, columnName, date, tags } = props;
@@ -55,17 +56,31 @@ export function Card(props: CardProps) {
   );
 }
 
-type CardFooterProps = { tags: Tag; date: string };
+type CardFooterProps = { tags: Tag; date: Date };
 function CardFooter({ tags, date }: CardFooterProps) {
+  const formatDate = formatDistance(date, new Date(), { addSuffix: false });
   return (
-    <span className="flex items-center justify-between">
-      <div className="flex gap-1">
-        {tags.red && <span className="h-2 w-6 rounded bg-rose-500" />}
-        {tags.yellow && <span className="h-2 w-6 rounded bg-yellow-500" />}
-        {tags.green && <span className="h-2 w-6 rounded bg-emerald-500" />}
-        {tags.blue && <span className="h-2 w-6 rounded bg-blue-500" />}
+    <span className="flex items-center gap-2 justify-between">
+      <div className="w-40 inline-flex gap-1">
+        {/* RED */}
+        {tags.red && (
+          <span className="h-2 grow w-3 max-w-5 rounded bg-rose-500" />
+        )}
+        {/* YELLOW */}
+        {tags.yellow && (
+          <span className="h-2 grow  w-3 max-w-5 rounded bg-yellow-500" />
+        )}
+        {/* GREEN */}
+        {tags.green && (
+          <span className="h-2 grow w-3 max-w-5 rounded bg-emerald-500" />
+        )}
+        {/* BLUE */}
+        {tags.blue && (
+          <span className="h-2 grow w-3 max-w-5 rounded bg-blue-500" />
+        )}
       </div>
-      <span className="text-xs text-neutral-500 self-end">{date}</span>
+
+      <span className="text-xs text-neutral-500">{formatDate}</span>
     </span>
   );
 }

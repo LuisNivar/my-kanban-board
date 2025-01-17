@@ -64,7 +64,7 @@ export function CardDialog({
       columnName: column,
       description: description.trim(),
       id: nanoid(),
-      date: FormatDate(new Date()),
+      date: new Date(),
       tags: tags,
     };
 
@@ -85,7 +85,7 @@ export function CardDialog({
       title: title,
       columnName: column,
       description: description.trim(),
-      date: FormatDate(new Date()),
+      date: new Date(),
       tags: tags,
     };
 

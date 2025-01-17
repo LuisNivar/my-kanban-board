@@ -10,7 +10,7 @@ export type ItemProps = {
   description: string;
   columnName: ColumProps["name"];
   id: string;
-  date: string;
+  date: Date;
   tags: Tag;
 };
 

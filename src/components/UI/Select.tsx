@@ -40,7 +40,7 @@ function Content({ children, ...props }: SelectPrimitive.SelectContentProps) {
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         {...props}
-        className="overflow-hidden border border-neutral-400 rounded-lg bg-neutral-800"
+        className="overflow-hidden shadow-[0_4px_10px] shadow-black/80 border border-neutral-600 rounded-lg bg-neutral-800"
       >
         <SelectPrimitive.ScrollUpButton className="flex h-6 cursor-default items-center justify-center bg-neutral-800 hover:bg-teal-500/20 text-teal-300">
           <ChevronUpIcon />

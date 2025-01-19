@@ -140,6 +140,14 @@ export type IconToggleProps = {
   onChange: (id: string) => void;
 };
 
+export type BackgroundToggleProps = {
+  id: string;
+  background: string;
+  disable?: boolean;
+  active?: boolean;
+  onChange: (id: string) => void;
+};
+
 export type ActionsCardsType =
   | AddCardAction
   | DeleteCardAction

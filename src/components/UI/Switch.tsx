@@ -25,11 +25,11 @@ const Switch = forwardRef(
 
     return (
       <SwitchPrimitive.Root
-        className={`relative h-[25px] w-[44px] cursor-default rounded-full bg-neutral-600 outline-none ${checkColor}`}
+        className={`group relative disabled:cursor-default h-[25px] w-[44px] cursor-pointer rounded-full bg-neutral-600 disabled:bg-neutral-740 outline-none ${checkColor}`}
         ref={ref}
         {...props}
       >
-        <SwitchPrimitive.Thumb className="block size-[19px] translate-x-1 rounded-full bg-neutral-100  transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[21px]" />
+        <SwitchPrimitive.Thumb className="block group-disabled:bg-neutral-500 size-[19px] translate-x-1 rounded-full bg-neutral-100  transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[21px]" />
       </SwitchPrimitive.Root>
     );
   }

@@ -102,6 +102,7 @@ type SideBarItemLink = {
   name: string;
   icon: string;
   path: string;
+  background?: string = "bg-neutral-900";
 };
 
 type AddBoardAction = {
@@ -140,6 +141,20 @@ export type IconToggleProps = {
   onChange: (id: string) => void;
 };
 
+export type BackgroundToggleProps = {
+  id: string;
+  background: string;
+  disable?: boolean;
+  active?: boolean;
+  onChange: (id: string) => void;
+};
+
+export type BackgroundChange = {
+  type: "backgroundChange";
+  icon: string;
+  background: string;
+};
+
 export type ActionsCardsType =
   | AddCardAction
   | DeleteCardAction
@@ -155,4 +170,5 @@ export type ActionsSidebarType =
   | AddBoardAction
   | UpdateAll
   | RenameBoardAction
-  | DeleteBoardAction;
+  | DeleteBoardAction
+  | BackgroundChange;

@@ -29,6 +29,15 @@ function reducer(
     case "delete": {
       return state.filter((b) => b.icon !== action.icon);
     }
+    case "backgroundChange": {
+      return state.map((b) => {
+        if (b.icon === action.icon) {
+          return { ...b, background: action.background };
+        } else {
+          return b;
+        }
+      });
+    }
   }
 }
 

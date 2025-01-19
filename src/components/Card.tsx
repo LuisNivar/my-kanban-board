@@ -36,7 +36,7 @@ export function Card(props: CardProps) {
         draggable
         onDragStart={handleDragStart}
         onDragEnd={handleEnd}
-        className={`flex flex-col gap-1 transition-colors cursor-grab rounded-lg hover:bg-neutral-700/60 bg-neutral-800 p-3 active:cursor-grabbing ${
+        className={`flex flex-col gap-1 transition-colors cursor-grab rounded-lg hover:bg-neutral-740 bg-neutral-800  shadow-[0_4px_4px] shadow-neutral-900/80  p-3 active:cursor-grabbing ${
           isDragging && "border-2 border-teal-600 hover:bg-neutral-800"
         }`}
       >
@@ -61,7 +61,7 @@ function CardFooter({ tags, date }: CardFooterProps) {
   const formatDate = formatDistance(date, new Date(), { addSuffix: false });
   return (
     <span className="flex items-center gap-2 justify-between">
-      <div className="w-40 inline-flex gap-1">
+      <div className="w-24 inline-flex gap-1">
         {/* RED */}
         {tags.red && (
           <span className="h-2 grow w-3 max-w-5 rounded bg-rose-500" />

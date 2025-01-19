@@ -3,6 +3,24 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        neutral: {
+          740: "#303030",
+          750: "#232323",
+          850: "#1B1B1B",
+        },
+      },
+      backgroundImage: {
+        astro: "url('./assets/background/astro.webp')",
+        sunset: "url('./assets/background/sunset.webp')",
+        "black-pattern": "url('./assets/background/black-pattern.webp')",
+        "bokeh-lights": "url('./assets/background/bokeh-lights.webp')",
+        "colorful-bokeh": "url('./assets/background/colorful-bokeh.webp')",
+        coal: "url('./assets/background/coal.webp')",
+        atlantis: "url('./assets/background/atlantis.webp')",
+        "china-night": "url('./assets/background/china-night.webp')",
+      },
+
       keyframes: {
         slideDownAndFade: {
           from: { opacity: "0", transform: "translateY(-2px)" },

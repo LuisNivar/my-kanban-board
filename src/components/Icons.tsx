@@ -26,16 +26,26 @@ import { GrEdit as EditIcon } from "react-icons/gr";
 
 import { HiOutlineFire as FireIcon } from "react-icons/hi2";
 import { IoBriefcaseOutline as WorkIcon } from "react-icons/io5";
+import { TbImageInPicture as BackgrounIcon } from "react-icons/tb";
 
 import { FiSidebar as SidebarIcon } from "react-icons/fi";
-import { GoGear as SettingIcon } from "react-icons/go";
+import {
+  GoCheck as CheckIcon,
+  GoChevronDown as ChevronDownIcon,
+  GoChevronUp as ChevronUpIcon,
+  GoGear as SettingIcon,
+} from "react-icons/go";
 export {
   AddIcon,
   AlertIcon,
+  BackgrounIcon,
   BookIcon,
   BoxIcon,
   CalendarIcon,
+  CheckIcon,
+  ChevronDownIcon,
   ChevronIcon,
+  ChevronUpIcon,
   CodeIcon,
   DataBaseIcon,
   EditIcon,

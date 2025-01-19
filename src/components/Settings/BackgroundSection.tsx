@@ -1,25 +1,66 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useContext, useEffect, useState } from "react";
+import { SidebarContext, SidebarDispatchContext } from "../../Context";
 import { BackgroundToggleProps } from "../../types";
 import { BackgrounIcon } from "../Icons";
 import Switch from "../UI/Switch";
 import { Sections } from "./Sections";
 import SelectBoards from "./SelectBoards";
-import { BACKGROUNDS_COLLECTION } from "./utils";
+import { BACKGROUNDS_COLLECTION, DEFAULT_BACKGROUND } from "./utils";
 
 export default function BackgrounbdSection() {
   const [state, setState] = useState(BACKGROUNDS_COLLECTION);
-  const [selection, setSelection] = useState<string | null>();
-  const [selectValue, setSelectValue] = useState<string | null>();
-
+  const [selection, setSelection] = useState<string | null>(null);
+  const [selectValue, setSelectValue] = useState<string | null>(null);
   const [showBg, setShowBg] = useState(false);
 
-  //DEBUG:
-  useEffect(() => {
-    console.log(selection);
-  }, [selection]);
+  const dispatch = useContext(SidebarDispatchContext);
+  const sidebar = useContext(SidebarContext);
 
   useEffect(() => {
-    console.log(selectValue);
+    handleShow();
+  }, [showBg]);
+
+  // Change background
+  useEffect(() => {
+    if (!selectValue) return;
+    if (!selection) return;
+
+    dispatch({
+      type: "backgroundChange",
+      icon: selectValue,
+      background: selection,
+    });
+  }, [selection]);
+
+  // Set default background
+  useEffect(() => {
+    if (!selectValue) return;
+    if (!showBg) {
+      dispatch({
+        type: "backgroundChange",
+        icon: selectValue,
+        background: DEFAULT_BACKGROUND,
+      });
+    }
+  }, [showBg]);
+
+  // Load background by board
+  useEffect(() => {
+    const selectedBackground = sidebar.filter((s) => s.icon === selectValue)[0]
+      ?.background;
+
+    if (!selectedBackground) return;
+    setShowBg(selectedBackground !== DEFAULT_BACKGROUND);
+
+    setState((prevState) => {
+      return prevState.map((b) => {
+        if (b.value === selectedBackground) {
+          return { ...b, toggled: true };
+        } else {
+          return { ...b, toggled: false };
+        }
+      });
+    });
   }, [selectValue]);
 
   function handleChange(key: string) {
@@ -37,10 +78,6 @@ export default function BackgrounbdSection() {
     });
   }
 
-  useEffect(() => {
-    handleShow();
-  }, [showBg]);
-
   function handleShow() {
     setState((prevState) => {
       return prevState.map((b) => {
@@ -48,59 +85,64 @@ export default function BackgrounbdSection() {
       });
     });
     //TODO: Do better
-    setSelection("bg-neutral-900");
+    setSelection(DEFAULT_BACKGROUND);
   }
 
   return (
     <Sections title="Customization" icon={<BackgrounIcon />}>
-      <div className="text-neutral-400">
-        <div className="flex gap-5 flex-col">
-          <fieldset className="h-8 flex justify-between items-center gap-2">
-            <label htmlFor="select">Apply to</label>
-            <SelectBoards onValueChange={setSelectValue} />
-          </fieldset>
-          <fieldset className="h-8 flex justify-between items-center gap-2">
-            <label htmlFor="show">Show background</label>
-            <Switch
-              color="yellow"
-              id="show"
-              checked={showBg}
-              onCheckedChange={setShowBg}
-            />
-          </fieldset>
+      <Body>
+        <Field htmlFor="select" label="Apply to">
+          <SelectBoards onValueChange={setSelectValue} />
+        </Field>
+        <Field htmlFor="show" label="Show backgrounds aviables">
+          <Switch
+            color="yellow"
+            id="show"
+            checked={showBg}
+            onCheckedChange={setShowBg}
+            disabled={!selectValue}
+          />
+        </Field>
 
-          <BackgroundsCategory title="Gradients">
-            {state
-              .filter((b) => b.type === "gradient")
-              .map((b) => (
-                <BackgroundToggle
-                  key={b.key}
-                  onChange={handleChange}
-                  background={b.value}
-                  id={b.key}
-                  active={b.toggled}
-                  disable={b.disable}
-                />
-              ))}
-          </BackgroundsCategory>
+        <BackgroundsCategory title="Gradients">
+          {state
+            .filter((b) => b.type === "gradient")
+            .map((b) => (
+              <BackgroundToggle
+                key={b.key}
+                onChange={handleChange}
+                background={b.value}
+                id={b.key}
+                active={b.toggled}
+                disable={b.disable}
+              />
+            ))}
+        </BackgroundsCategory>
 
-          <BackgroundsCategory title="Images">
-            {state
-              .filter((b) => b.type === "image")
-              .map((b) => (
-                <BackgroundToggle
-                  key={b.key}
-                  onChange={handleChange}
-                  background={b.value}
-                  id={b.key}
-                  active={b.toggled}
-                  disable={b.disable}
-                />
-              ))}
-          </BackgroundsCategory>
-        </div>
-      </div>
+        <BackgroundsCategory title="Images">
+          {state
+            .filter((b) => b.type === "image")
+            .map((b) => (
+              <BackgroundToggle
+                key={b.key}
+                onChange={handleChange}
+                background={b.value}
+                id={b.key}
+                active={b.toggled}
+                disable={b.disable}
+              />
+            ))}
+        </BackgroundsCategory>
+      </Body>
     </Sections>
+  );
+}
+
+function Body({ children }: PropsWithChildren) {
+  return (
+    <div className="text-neutral-400">
+      <div className="flex gap-5 flex-col">{children}</div>
+    </div>
   );
 }
 
@@ -111,6 +153,16 @@ function BackgroundsCategory({ title, children }: BackgroundsCategoryProps) {
       <h3 className="text-base mb-2">{title}</h3>
       <span className="grid grid-cols-4 gap-3">{children}</span>
     </div>
+  );
+}
+
+type FieldProps = PropsWithChildren & { label: string; htmlFor: string };
+function Field({ children, label, htmlFor }: FieldProps) {
+  return (
+    <fieldset className="h-8 flex justify-between items-center gap-2">
+      <label htmlFor={htmlFor}>{label}</label>
+      {children}
+    </fieldset>
   );
 }
 

@@ -1,15 +1,24 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CardProvider } from "../CardProvider";
-import { CardContext } from "../Context";
+import { CardContext, SidebarContext } from "../Context";
 import { ItemProps } from "../types";
 import Column from "./Column";
 import TrashCan from "./TrashCan";
+import { DEFAULT_BACKGROUND } from "./Settings/utils";
 
 export function Kanban() {
+  const state = useContext(SidebarContext);
+  //TODO: Find a better way
+  const { id } = useParams();
+  const background =
+    state.filter((b) => b.name === id)[0]?.background ?? DEFAULT_BACKGROUND;
+
   return (
     <CardProvider>
-      <div className="h-screen w-full px-6 py-5 overflow-x-auto bg-neutral-900 text-neutral-100">
+      <div
+        className={`h-screen w-full px-6 py-5 overflow-x-auto bg-cover text-neutral-100 ${background}`}
+      >
         <Columns />
       </div>
     </CardProvider>

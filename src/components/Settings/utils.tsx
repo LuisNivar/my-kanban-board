@@ -61,10 +61,10 @@ export const BACKGROUNDS_COLLECTION: backgroundToggle[] = [
   },
 ];
 
+export const DEFAULT_BACKGROUND = "bg-neutral-900";
+
 export function getBackground(key: string) {
-  return (
-    BACKGROUNDS_COLLECTION.filter((b) => b.key === key) ?? "bg-neutral-900"
-  );
+  return BACKGROUNDS_COLLECTION.filter((b) => b.key === key)[0];
 }
 
 export function getBackgroundKeys(): string[] {

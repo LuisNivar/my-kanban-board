@@ -2,12 +2,27 @@ import * as SwitchPrimitive from "@radix-ui/react-switch";
 import { ForwardedRef, forwardRef } from "react";
 
 export type SwitchProps = SwitchPrimitive.SwitchProps & {
-  color: "teal" | "red" | "amber" | "blue" | "green";
+  color: "teal" | "red" | "yellow" | "blue" | "green";
 };
 
 const Switch = forwardRef(
   ({ color, ...props }: SwitchProps, ref: ForwardedRef<HTMLButtonElement>) => {
-    const checkColor = `data-[state=checked]:bg-${color}-600`;
+    let checkColor = `data-[state=checked]:bg-teal-600`;
+    switch (color) {
+      case "red":
+        checkColor = `data-[state=checked]:bg-red-600`;
+        break;
+      case "yellow":
+        checkColor = `data-[state=checked]:bg-amber-600`;
+        break;
+      case "blue":
+        checkColor = `data-[state=checked]:bg-blue-600`;
+        break;
+      case "green":
+        checkColor = `data-[state=checked]:bg-emerald-600`;
+        break;
+    }
+
     return (
       <SwitchPrimitive.Root
         className={`relative h-[25px] w-[44px] cursor-default rounded-full bg-neutral-600 outline-none ${checkColor}`}

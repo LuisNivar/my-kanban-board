@@ -8,10 +8,10 @@ export default function SelectBoards({ ...props }: SelectProps) {
   const sidebar = useContext(SidebarContext);
 
   return (
-    <Select {...props} ariaLabel="Boards" placeholder="Seect a board...">
+    <Select {...props} ariaLabel="Boards" placeholder="Select a board...">
       <Select.Content>
         {sidebar.map((item) => (
-          <Select.SelectItem key={item.icon} value={item.name}>
+          <Select.SelectItem key={item.icon} value={item.icon}>
             <span className="flex items-center gap-2">
               {ICON_DICTIONARY[item.icon]} {item.name}
             </span>

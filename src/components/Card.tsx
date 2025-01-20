@@ -6,6 +6,7 @@ import { CardProps, Tag } from "../types";
 import DropIndicator from "./DropIndicator";
 import { MoreIcon } from "./Icons";
 import { MenuAction } from "./MenuAction";
+import clsx from "clsx";
 
 export function Card(props: CardProps) {
   const { title, description, id, columnName, date, tags } = props;
@@ -36,9 +37,10 @@ export function Card(props: CardProps) {
         draggable
         onDragStart={handleDragStart}
         onDragEnd={handleEnd}
-        className={`flex flex-col gap-1 transition-colors cursor-grab rounded-lg hover:bg-neutral-740 bg-neutral-800  shadow-[0_4px_4px] shadow-neutral-900/80  p-3 active:cursor-grabbing ${
+        className={clsx(
+          "flex flex-col gap-1 transition-colors cursor-grab rounded-lg hover:bg-neutral-740 bg-neutral-800  shadow-[0_4px_4px] shadow-neutral-900/80  p-3 active:cursor-grabbing",
           isDragging && "border-2 border-teal-600 hover:bg-neutral-800"
-        }`}
+        )}
       >
         <div className="flex w-full items-center justify-between">
           <h1 className="text-neutral-300 text-sm font-medium">{title}</h1>

@@ -1,4 +1,5 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import clsx from "clsx";
 import { PropsWithChildren } from "react";
 import { GoX as CloseIcon } from "react-icons/go";
 
@@ -50,23 +51,20 @@ export type DialogButtonProps = DialogPrimitive.DialogCloseProps & {
 };
 
 function Button({ variant, ...props }: DialogButtonProps) {
-  let style;
-  switch (variant) {
-    case "danger":
-      style = "text-neutral-50 bg-red-700 hover:bg-red-600";
-      break;
-    case "secondary":
-      style = "text-neutral-300 bg-neutral-700/30 hover:bg-neutral-700";
-      break;
-    default:
-      style = "bg-neutral-50  text-neutral-900 hover:bg-neutral-200";
-      break;
-  }
+  const isDanger = variant === "danger";
+  const isDefault = variant === "default";
+  const isSecondary = variant === "secondary";
 
   return (
     <DialogPrimitive.Close {...props} asChild>
       <button
-        className={`${style} transition-colors inline-flex items-center justify-center rounded  px-4 py-3 text-sm font-medium leading-none focus:outline-none `}
+        className={clsx(
+          "transition-colors inline-flex items-center justify-center rounded  px-4 py-3 text-sm font-medium leading-none focus:outline-none",
+          isDefault && "bg-neutral-50  text-neutral-900 hover:bg-neutral-200",
+          isDanger && "text-neutral-50 bg-red-700 hover:bg-red-600",
+          isSecondary &&
+            "text-neutral-300 bg-neutral-700/30 hover:bg-neutral-700"
+        )}
         aria-label="Close"
       >
         {props.children}

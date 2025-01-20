@@ -9,6 +9,7 @@ import DropdownMenu, {
 } from "./UI/DropdownMenu";
 import { AlertIcon, ChevronIcon, EditIcon, TrashIcon } from "./Icons";
 import { CardDialog } from "./CardDialog";
+import clsx from "clsx";
 
 type MenuActionProps = PropsWithChildren & {
   card: CardProps;
@@ -54,7 +55,7 @@ function Action({ label, icon, variant, ...props }: ActionProps) {
   return (
     <DropdownMenu.Item variant={variant} {...props}>
       <button
-        className={`flex items-center gap-2 w-full ${!icon ? "ml-6" : ""}`}
+        className={clsx("flex items-center gap-2 w-full", !icon && "ml-6")}
       >
         {icon} <span>{label}</span>
       </button>

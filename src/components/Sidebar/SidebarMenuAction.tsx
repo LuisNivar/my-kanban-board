@@ -1,6 +1,7 @@
 import React from "react";
 import { SettingIcon, TrashIcon } from "../Icons";
 import ContextMenu, { ContextMenuProps, ItemProps } from "../UI/ContextMenu";
+import clsx from "clsx";
 
 type SiSidebarMenuActionProps = ContextMenuProps & {
   onDelete: () => void;
@@ -38,7 +39,7 @@ function Actions({ label, icon, variant, ...props }: ActionsProps) {
   return (
     <ContextMenu.Item variant={variant} {...props}>
       <button
-        className={`flex items-center gap-2 w-full ${!icon ? "ml-6" : ""}`}
+        className={clsx("flex items-center gap-2 w-full", !icon && "ml-6")}
       >
         {icon} <span>{label}</span>
       </button>

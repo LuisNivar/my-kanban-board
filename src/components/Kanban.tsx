@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { CardProvider } from "../CardProvider";
 import { CardContext, SidebarContext } from "../Context";
 import { ItemProps } from "../types";
-import Column from "./Column";
 import TrashCan from "./TrashCan";
 import { DEFAULT_BACKGROUND } from "./Settings/utils";
+import Column from "./Column";
 
 export function Kanban() {
   const state = useContext(SidebarContext);

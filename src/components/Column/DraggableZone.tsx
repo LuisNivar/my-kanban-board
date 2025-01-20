@@ -1,63 +1,18 @@
 import { PropsWithChildren, useContext, useState } from "react";
+import { ItemProps } from "../../types";
+import { CardDispatchContext, DEFAULT_BOARD } from "../../Context";
 import { useParams } from "react-router-dom";
-import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
-import { ColumProps, ItemProps } from "../types";
-import { Card } from "./Card";
-import DropIndicator from "./DropIndicator";
-import { AddIcon } from "./Icons";
-import { CardDialog } from "./CardDialog";
-
-export default function Column(props: ColumProps) {
-  const { title, headingColor, cards, name } = props;
-  const filteredCards = cards.filter((c: ItemProps) => c.columnName === name);
-
-  return (
-    <div className="flex flex-col gap-2 shrink-0 grow-0 w-56 h-full">
-      <ColumnHeader
-        color={headingColor}
-        title={title}
-        count={filteredCards.length}
-      />
-      <DragableZone cards={cards} name={name}>
-        {filteredCards.map((card: ItemProps) => (
-          <Card key={card.id} {...card} />
-        ))}
-      </DragableZone>
-      <NewTaskButton name={name} />
-    </div>
-  );
-}
-
-type ColumnHeaderProps = {
-  count: number;
-  title: string;
-  color: string;
-};
-function ColumnHeader({ color, title, count }: ColumnHeaderProps) {
-  return (
-    <header className="select-none px-3 py-2 rounded-lg cursor-default shadow-[0_2px_2px] shadow-neutral-900/80  bg-neutral-800 gap-4 flex items-center justify-center">
-      <h3 className={`font-medium ${color}`}>{title}</h3>
-      <span className="text-center text-sm text-neutral-400">{count ?? 0}</span>
-    </header>
-  );
-}
-
-function NewTaskButton({ name }: { name: string }) {
-  return (
-    <CardDialog column={name}>
-      <button className="select-none flex transition-colors  shadow-[0_2px_2px] shadow-neutral-900/80 justify-center text-sm items-center gap-2 w-full px-3 py-2 rounded-lg hover:bg-neutral-700 text-neutral-300 hover:text-neutral-100 bg-neutral-800">
-        New Task
-        <AddIcon />
-      </button>
-    </CardDialog>
-  );
-}
+import DropIndicator from "../DropIndicator";
 
 type DragableZoneProps = PropsWithChildren & {
   name: string;
   cards: ItemProps[];
 };
-function DragableZone({ children, name, cards }: DragableZoneProps) {
+export default function DraggableZone({
+  children,
+  name,
+  cards,
+}: DragableZoneProps) {
   const dispatch = useContext(CardDispatchContext);
   const [active, setActive] = useState(false);
   const { id } = useParams();
@@ -80,9 +35,8 @@ function DragableZone({ children, name, cards }: DragableZoneProps) {
     clearHighlightIndicator();
     setActive(false);
   }
-  //#endregion
 
-  //#region Drop Indicators
+  //#endregion
   function getDropIndicators(): HTMLElement[] {
     return Array.from(document.querySelectorAll(`[data-column="${name}"]`));
   }
@@ -124,8 +78,6 @@ function DragableZone({ children, name, cards }: DragableZoneProps) {
     );
     return nearest;
   }
-  //#endregion
-
   function updateCardPositions(e: React.DragEvent) {
     const cardId = e.dataTransfer.getData("CardID");
     const indicator = getDropIndicators();

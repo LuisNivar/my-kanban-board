@@ -3,6 +3,7 @@ import { ItemProps } from "../../types";
 import { CardDispatchContext, DEFAULT_BOARD } from "../../Context";
 import { useParams } from "react-router-dom";
 import DropIndicator from "../DropIndicator";
+import clsx from "clsx";
 
 type DragableZoneProps = PropsWithChildren & {
   name: string;
@@ -78,6 +79,7 @@ export default function DraggableZone({
     );
     return nearest;
   }
+
   function updateCardPositions(e: React.DragEvent) {
     const cardId = e.dataTransfer.getData("CardID");
     const indicator = getDropIndicators();
@@ -123,9 +125,10 @@ export default function DraggableZone({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`rounded-lg px-2 h-[75vh] shadow-[0_2px_2px] shadow-neutral-900/80  overflow-y-auto scroll-smooth w-full transition-colors ${
-        active ? "bg-teal-500/15" : "bg-neutral-850/95"
-      }`}
+      className={clsx(
+        "rounded-lg px-2 h-[75vh] shadow-[0_2px_2px] bg-neutral-850/95 shadow-neutral-900/80  overflow-y-auto scroll-smooth w-full transition-colors",
+        active && "bg-teal-500/15"
+      )}
     >
       {children}
       <DropIndicator beforeId={null} currColumn={name} />

@@ -6,6 +6,7 @@ import Switch from "../UI/Switch";
 import { Sections } from "./Sections";
 import SelectBoards from "./SelectBoards";
 import { BACKGROUNDS_COLLECTION, DEFAULT_BACKGROUND } from "./utils";
+import clsx from "clsx";
 
 export default function BackgrounbdSection() {
   const [state, setState] = useState(BACKGROUNDS_COLLECTION);
@@ -179,14 +180,13 @@ export function BackgroundToggle({
 
   return (
     <button
-      className={`bg-cover ${background} relative rounded-md w-16 h-10 
-      ${
+      className={clsx(
+        `bg-cover ${background} relative rounded-md w-16 h-10`,
         active &&
-        !disable &&
-        "ring-2 ring-offset-4 ring-offset-neutral-800 ring-teal-500"
-      }
-      ${disable && "grayscale"}
-      `}
+          !disable &&
+          "ring-2 ring-offset-4 ring-offset-neutral-800 ring-teal-500",
+        disable && "grayscale"
+      )}
       onClick={() => handeleChange()}
       disabled={disable}
     >

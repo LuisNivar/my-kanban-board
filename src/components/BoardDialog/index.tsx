@@ -1,5 +1,6 @@
+import { nanoid } from "nanoid";
 import { useContext, useState } from "react";
-import { SidebarDispatchContext } from "../../Context";
+import { COLUMN_DEFAULT, SidebarDispatchContext } from "../../Context";
 import { IconToggle, SideBarItemLink } from "../../types";
 import Dialog, { DialogProps } from "../UI/Dialog";
 import { IconsGroup } from "./IconsGroup";
@@ -12,16 +13,19 @@ export default function BoardDialog({ children, ...props }: DialogProps) {
 
   function handleCreate() {
     if (!selection) return;
+    const id = nanoid();
 
     const newItemLink: SideBarItemLink = {
-      name: name,
+      name,
       icon: selection.key,
-      path: `/board/${name}`,
+      path: `/board/${id}`,
+      columns: COLUMN_DEFAULT,
+      id,
     };
 
     dispatch({
       type: "add",
-      itemLink: newItemLink,
+      newItemLink: newItemLink,
     });
 
     //rest

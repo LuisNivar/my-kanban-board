@@ -1,14 +1,25 @@
-export type ColumProps = {
-  title: string;
-  headingColor: string;
-  name: string;
+export type ColumnProps = ColumnType & {
   cards: ItemProps[];
 };
+
+export type ColumnType = {
+  id: string;
+  name: string;
+  color: headingColor;
+};
+
+export type headingColor =
+  | "amber"
+  | "cyan"
+  | "red"
+  | "neutral"
+  | "emerald"
+  | "purple";
 
 export type ItemProps = {
   title: string;
   description: string;
-  columnName: ColumProps["name"];
+  columnId: ColumnType["id"];
   id: string;
   date: Date;
   tags: Tag;
@@ -39,11 +50,11 @@ export type TagSelectorProps = {
 
 export type DropIndicatorProps = {
   beforeId?: string | null;
-  currColumn: ColumProps["name"];
+  currColumn: ColumnProps["id"];
 };
 
 export type AddCardProps = {
-  columnName: ColumProps["name"];
+  columnId: ColumnProps["id"];
   board: string;
 };
 
@@ -62,7 +73,7 @@ type DeleteCardAction = {
 type MoveCardAction = {
   type: "move";
   id: ItemProps["id"];
-  column: ColumProps["name"];
+  column: ColumnProps["id"];
   board: string;
 };
 
@@ -99,26 +110,28 @@ type Update = {
 };
 
 type SideBarItemLink = {
+  path: string;
   name: string;
   icon: string;
-  path: string;
+  id: string;
   background?: string = "bg-neutral-900";
+  columns: ColumnType[];
 };
 
 type AddBoardAction = {
   type: "add";
-  itemLink: SideBarItemLink;
+  newItemLink: SideBarItemLink;
 };
 
 type RenameBoardAction = {
   type: "rename";
-  icon: string;
+  id: string;
   newName: string;
 };
 
 type DeleteBoardAction = {
   type: "delete";
-  icon: string;
+  id: string;
 };
 
 type UpdateAll = {
@@ -151,10 +164,28 @@ export type BackgroundToggleProps = {
 
 export type BackgroundChange = {
   type: "backgroundChange";
-  icon: string;
+  boardId: string;
   background: string;
 };
 
+export type AddColumnAction = {
+  type: "addColumn";
+  boardId: string;
+  newColumn: ColumnType;
+};
+
+export type RemoveColumnAction = {
+  type: "deleteColumn";
+  boardId: string;
+  columnId: string;
+};
+
+export type UpdateColumnAction = {
+  type: "updateColumn";
+  boardId: string;
+  columnId: string;
+  values: Omit<ColumnType, "id">;
+};
 export type ActionsCardsType =
   | AddCardAction
   | DeleteCardAction
@@ -167,8 +198,11 @@ export type ActionsCardsType =
   | UpdateBoards;
 
 export type ActionsSidebarType =
+  | AddColumnAction
+  | RemoveColumnAction
   | AddBoardAction
   | UpdateAll
   | RenameBoardAction
   | DeleteBoardAction
-  | BackgroundChange;
+  | BackgroundChange
+  | UpdateColumnAction;

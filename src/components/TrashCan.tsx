@@ -35,7 +35,7 @@ export default function TrashCan() {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={clsx(
-        "group border-dashed transition-all select-none shadow-[0_2px_2px] shadow-neutral-900/80 mt-12 flex flex-col min-w-32 scroll-mx-6 w-58 lg:max-h-56 aspect-square items-center justify-center rounded-lg border-2 text-3xl",
+        "group border-dashed transition-all select-none shadow-[0_2px_2px] shadow-neutral-900/80 flex flex-col size-56 aspect-square items-center justify-center rounded-lg border-2 text-3xl",
         active
           ? " border-red-800 bg-red-800/25 text-red-500 text-[40px]"
           : "border-neutral-600 bg-neutral-850/95 text-neutral-400"

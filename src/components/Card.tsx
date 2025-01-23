@@ -5,11 +5,11 @@ import { CardDispatchContext, DEFAULT_BOARD } from "../Context";
 import { CardProps, Tag } from "../types";
 import DropIndicator from "./DropIndicator";
 import { MoreIcon } from "./Icons";
-import { MenuAction } from "./MenuAction";
 import clsx from "clsx";
+import { MenuAction } from "./CardMenuAction";
 
 export function Card(props: CardProps) {
-  const { title, description, id, columnName, date, tags } = props;
+  const { title, description, id, columnId: columnName, date, tags } = props;
   const dispatch = useContext(CardDispatchContext);
   const [isDragging, setIsDragging] = useState(false);
   const { id: boardId } = useParams();
@@ -63,7 +63,7 @@ function CardFooter({ tags, date }: CardFooterProps) {
   const formatDate = formatDistance(date, new Date(), { addSuffix: false });
   return (
     <span className="flex items-center gap-2 justify-between">
-      <div className="w-24 inline-flex gap-1">
+      <div className="w-[70px] inline-flex gap-1">
         {/* RED */}
         {tags.red && (
           <span className="h-2 grow w-3 max-w-5 rounded bg-rose-500" />

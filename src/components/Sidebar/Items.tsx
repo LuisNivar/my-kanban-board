@@ -17,8 +17,8 @@ export default function Items({ state }: itemsProps) {
   const [open, setOpen] = useState(false);
 
   function Delete() {
-    const icon = dataTransfer.getData("icon");
-    dispatch({ type: "delete", icon });
+    const id = dataTransfer.getData("id");
+    dispatch({ type: "delete", id });
   }
 
   return (
@@ -35,12 +35,12 @@ type ItemsProps = SideBarItemLink & {
   onOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 function Item(props: ItemsProps) {
-  const { name, icon, path, onOpen } = props;
+  const { name, id, icon, path, onOpen } = props;
 
   const navigate = useNavigate();
 
   function handleDelete() {
-    dataTransfer.setData("icon", icon);
+    dataTransfer.setData("id", id);
     onOpen(true);
   }
 
@@ -53,7 +53,7 @@ function Item(props: ItemsProps) {
       <SidebarMenuAction onDelete={handleDelete} onEdit={handleEdit}>
         <ForwardPropsToChild>
           <Tooltip text={name}>
-            <LinkItem to={path} icon={icon} name={name} />
+            <LinkItem to={path} id={id} icon={icon} name={name} />
           </Tooltip>
         </ForwardPropsToChild>
       </SidebarMenuAction>

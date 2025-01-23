@@ -3,6 +3,7 @@ import {
   ActionsCardsType,
   ActionsSidebarType,
   BoardProps,
+  ColumnType,
   SideBarItemLink,
 } from "./types";
 
@@ -15,10 +16,22 @@ export const CardDispatchContext = createContext<
   React.Dispatch<ActionsCardsType>
 >(() => {});
 
+export const COLUMN_DEFAULT: ColumnType[] = [
+  { name: "BACKLOCK", id: "backlock", color: "neutral" },
+  { name: "TODO", id: "todo", color: "amber" },
+  { name: "DOING", id: "doing", color: "cyan" },
+  { name: "COMPLETE", id: "complete", color: "emerald" },
+];
+
 //Sidebar context
 export const SIDEBAR_STATE: SideBarItemLink[] = [
-  { name: "home", icon: "home", path: "/board/home" },
-  { name: "work", icon: "work", path: "/board/work" },
+  {
+    name: "home",
+    id: "home",
+    icon: "home",
+    path: "/board/home",
+    columns: COLUMN_DEFAULT,
+  },
 ];
 
 export const SidebarContext = createContext<SideBarItemLink[]>(SIDEBAR_STATE);

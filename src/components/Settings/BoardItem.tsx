@@ -7,9 +7,10 @@ import DeleteDialog from "../DeleteDialog";
 type BoardItemProps = {
   icon: string;
   name: string;
+  id: string;
 };
 
-export default function BoardItem({ icon, name }: BoardItemProps) {
+export default function BoardItem({ icon, name, id }: BoardItemProps) {
   const [inputName, setInputName] = useState(name);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
@@ -42,7 +43,7 @@ export default function BoardItem({ icon, name }: BoardItemProps) {
 
     if (e.key === "Enter") {
       //TODO: Change path and persist data
-      dispatch({ type: "rename", newName: inputName, icon });
+      dispatch({ type: "rename", newName: inputName, id });
       inputRef.current.setSelectionRange(0, 0);
       inputRef.current.blur();
       setEditing(false);
@@ -54,7 +55,7 @@ export default function BoardItem({ icon, name }: BoardItemProps) {
   }
 
   function Delete() {
-    dispatch({ type: "delete", icon });
+    dispatch({ type: "delete", id });
   }
 
   return (

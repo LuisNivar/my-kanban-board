@@ -35,8 +35,12 @@ import {
   GoChevronUp as ChevronUpIcon,
   GoGear as SettingIcon,
 } from "react-icons/go";
+
+import { HiOutlineAdjustments as AdjustmentIcon } from "react-icons/hi";
+
 export {
   AddIcon,
+  AdjustmentIcon,
   AlertIcon,
   BackgrounIcon,
   BookIcon,

@@ -7,53 +7,57 @@ import { Sections } from "./Sections";
 import SelectBoards from "./SelectBoards";
 import { BACKGROUNDS_COLLECTION, DEFAULT_BACKGROUND } from "./utils";
 import clsx from "clsx";
+import { Field } from "./Field";
 
 export default function BackgrounbdSection() {
-  const [state, setState] = useState(BACKGROUNDS_COLLECTION);
+  const [backgrounds, setBackgrounds] = useState(BACKGROUNDS_COLLECTION);
   const [selection, setSelection] = useState<string | null>(null);
-  const [selectValue, setSelectValue] = useState<string | null>(null);
-  const [showBg, setShowBg] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
+  const [showBackgrounds, setShowBackgrounds] = useState(false);
 
   const dispatch = useContext(SidebarDispatchContext);
   const sidebar = useContext(SidebarContext);
 
   useEffect(() => {
     handleShow();
-  }, [showBg]);
+  }, [showBackgrounds]);
 
   // Change background
   useEffect(() => {
-    if (!selectValue) return;
+    if (!selectedBoard) return;
     if (!selection) return;
+
+    console.log(selectedBoard);
 
     dispatch({
       type: "backgroundChange",
-      icon: selectValue,
+      boardId: selectedBoard,
       background: selection,
     });
   }, [selection]);
 
   // Set default background
   useEffect(() => {
-    if (!selectValue) return;
-    if (!showBg) {
+    if (!selectedBoard) return;
+    if (!showBackgrounds) {
       dispatch({
         type: "backgroundChange",
-        icon: selectValue,
+        boardId: selectedBoard,
         background: DEFAULT_BACKGROUND,
       });
     }
-  }, [showBg]);
+  }, [showBackgrounds]);
 
   // Load background by board
   useEffect(() => {
-    const selectedBackground = sidebar.filter((s) => s.icon === selectValue)[0]
-      ?.background;
+    const selectedBackground = sidebar.filter(
+      (s) => s.icon === selectedBoard
+    )[0]?.background;
 
     if (!selectedBackground) return;
-    setShowBg(selectedBackground !== DEFAULT_BACKGROUND);
+    setShowBackgrounds(selectedBackground !== DEFAULT_BACKGROUND);
 
-    setState((prevState) => {
+    setBackgrounds((prevState) => {
       return prevState.map((b) => {
         if (b.value === selectedBackground) {
           return { ...b, toggled: true };
@@ -62,13 +66,13 @@ export default function BackgrounbdSection() {
         }
       });
     });
-  }, [selectValue]);
+  }, [selectedBoard]);
 
   function handleChange(key: string) {
-    const b = state.filter((b) => b.key === key)[0];
+    const b = backgrounds.filter((b) => b.key === key)[0];
     setSelection(b.value);
 
-    setState((prevState) => {
+    setBackgrounds((prevState) => {
       return prevState.map((b) => {
         if (b.key === key) {
           return { ...b, toggled: !b.toggled };
@@ -80,7 +84,7 @@ export default function BackgrounbdSection() {
   }
 
   function handleShow() {
-    setState((prevState) => {
+    setBackgrounds((prevState) => {
       return prevState.map((b) => {
         return { ...b, disable: !b.disable };
       });
@@ -91,22 +95,22 @@ export default function BackgrounbdSection() {
 
   return (
     <Sections title="Customization" icon={<BackgrounIcon />}>
-      <Body>
+      <div className="flex gap-5 flex-col text-neutral-400">
         <Field htmlFor="select" label="Apply to">
-          <SelectBoards onValueChange={setSelectValue} />
+          <SelectBoards onValueChange={setSelectedBoard} />
         </Field>
         <Field htmlFor="show" label="Show backgrounds aviables">
           <Switch
-            color="yellow"
+            color="teal"
             id="show"
-            checked={showBg}
-            onCheckedChange={setShowBg}
-            disabled={!selectValue}
+            checked={showBackgrounds}
+            onCheckedChange={setShowBackgrounds}
+            disabled={!selectedBoard}
           />
         </Field>
 
         <BackgroundsCategory title="Gradients">
-          {state
+          {backgrounds
             .filter((b) => b.type === "gradient")
             .map((b) => (
               <BackgroundToggle
@@ -121,7 +125,7 @@ export default function BackgrounbdSection() {
         </BackgroundsCategory>
 
         <BackgroundsCategory title="Images">
-          {state
+          {backgrounds
             .filter((b) => b.type === "image")
             .map((b) => (
               <BackgroundToggle
@@ -134,16 +138,8 @@ export default function BackgrounbdSection() {
               />
             ))}
         </BackgroundsCategory>
-      </Body>
+      </div>
     </Sections>
-  );
-}
-
-function Body({ children }: PropsWithChildren) {
-  return (
-    <div className="text-neutral-400">
-      <div className="flex gap-5 flex-col">{children}</div>
-    </div>
   );
 }
 
@@ -154,16 +150,6 @@ function BackgroundsCategory({ title, children }: BackgroundsCategoryProps) {
       <h3 className="text-base mb-2">{title}</h3>
       <span className="grid grid-cols-4 gap-3">{children}</span>
     </div>
-  );
-}
-
-type FieldProps = PropsWithChildren & { label: string; htmlFor: string };
-function Field({ children, label, htmlFor }: FieldProps) {
-  return (
-    <fieldset className="h-8 flex justify-between items-center gap-2">
-      <label htmlFor={htmlFor}>{label}</label>
-      {children}
-    </fieldset>
   );
 }
 

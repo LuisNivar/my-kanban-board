@@ -69,7 +69,7 @@ export function getNewCardPositions(
   if (!cardToMove) return cards;
 
   // Assign the current column
-  cardToMove.columnName = column;
+  cardToMove.columnId = column;
 
   // Remove the card of array
   copy = copy.filter((c) => c.id !== cardId);

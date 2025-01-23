@@ -11,12 +11,12 @@ import {
 } from "./utils";
 
 type DragableZoneProps = PropsWithChildren & {
-  name: string;
+  id: string;
   cards: ItemProps[];
 };
 export default function DraggableZone({
   children,
-  name,
+  id: ColumnId,
   cards,
 }: DragableZoneProps) {
   const dispatch = useContext(CardDispatchContext);
@@ -26,18 +26,18 @@ export default function DraggableZone({
   //#region Handlers
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
-    highlightIndicator(e, name);
+    highlightIndicator(e, ColumnId);
     setActive(true);
   }
 
   function handleDragLeave(e: React.DragEvent) {
     e.preventDefault();
-    clearHighlightIndicator(name);
+    clearHighlightIndicator(ColumnId);
     setActive(false);
   }
 
   function handleDrop(e: React.DragEvent) {
-    const newCards = getNewCardPositions(e, name, cards);
+    const newCards = getNewCardPositions(e, ColumnId, cards);
 
     dispatch({
       type: "updateItemsBoard",
@@ -45,7 +45,7 @@ export default function DraggableZone({
       board: id ?? DEFAULT_BOARD,
     });
 
-    clearHighlightIndicator(name);
+    clearHighlightIndicator(ColumnId);
     setActive(false);
   }
   //#endregion
@@ -56,12 +56,12 @@ export default function DraggableZone({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={clsx(
-        "rounded-lg px-2 h-[75vh] shadow-[0_2px_2px] bg-neutral-850/95 shadow-neutral-900/80  overflow-y-auto scroll-smooth w-full transition-colors",
+        "rounded-lg px-2 h-full shadow-[0_2px_2px] bg-neutral-850/95 shadow-neutral-900/80  overflow-y-auto scroll-smooth w-full transition-colors",
         active && "bg-teal-500/15"
       )}
     >
       {children}
-      <DropIndicator beforeId={null} currColumn={name} />
+      <DropIndicator beforeId={null} currColumn={ColumnId} />
     </div>
   );
 }

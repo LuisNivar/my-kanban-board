@@ -2,8 +2,7 @@ import { nanoid } from "nanoid";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CardDispatchContext, DEFAULT_BOARD } from "../../Context";
-import { CardProps, ColumProps, ItemProps, Tag } from "../../types";
-import { FormatDate } from "../../utils";
+import { CardProps, ColumnProps, ItemProps, Tag } from "../../types";
 import Dialog, { DialogProps } from "../UI/Dialog";
 import { Field } from "./Field";
 import { TagSelector } from "./TagSelector";
@@ -14,13 +13,13 @@ import {
 } from "./utils";
 
 export type CardDialogProps = DialogProps & {
-  column: ColumProps["name"];
+  columnId: ColumnProps["id"];
   card?: CardProps;
 };
 
 export function CardDialog({
   children,
-  column,
+  columnId,
   card,
   ...props
 }: CardDialogProps) {
@@ -61,7 +60,7 @@ export function CardDialog({
 
     const newCard: ItemProps = {
       title: title,
-      columnName: column,
+      columnId,
       description: description.trim(),
       id: nanoid(),
       date: new Date(),
@@ -83,7 +82,7 @@ export function CardDialog({
 
     const newProps = {
       title: title,
-      columnName: column,
+      columnId,
       description: description.trim(),
       date: new Date(),
       tags: tags,
@@ -142,7 +141,7 @@ export function CardDialog({
           <span className="text-neutral-500 -mt-1 text-xs self-end">{`${lengthDescription}/${MAX_LENGTH_DESCRIPTION}`}</span>
           <Field label="Tags" htmlFor="tags">
             {/* //FIXME: Investigate the correct way to match label with the fieldset*/}
-            <TagSelector id="tags" state={tags} setTags={setTags} />
+            <TagSelector state={tags} setTags={setTags} />
           </Field>
 
           <Dialog.Button

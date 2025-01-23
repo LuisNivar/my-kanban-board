@@ -13,7 +13,12 @@ export default function SidebarSection() {
   return (
     <Sections title="Boards | Workspaces" icon={<SidebarIcon />}>
       {items.map((board) => (
-        <BoardItem key={board.icon} icon={board.icon} name={board.name} />
+        <BoardItem
+          key={board.icon}
+          id={board.id}
+          icon={board.icon}
+          name={board.name}
+        />
       ))}
 
       {items.length < MAX_BOARDS ? (

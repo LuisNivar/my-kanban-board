@@ -1,21 +1,22 @@
-import React, { ForwardedRef } from "react";
-import { Link, LinkProps, useLocation } from "react-router-dom";
-import { ICON_DICTIONARY } from "./utils";
 import clsx from "clsx";
+import React, { ForwardedRef } from "react";
+import { Link, LinkProps, useParams } from "react-router-dom";
+import { ICON_DICTIONARY } from "./utils";
 
 type LinkItemProps = LinkProps & {
   icon: string;
   name: string;
+  id: string;
 };
 
 export const LinkItem = React.forwardRef(
   (
-    { icon, name, ...props }: LinkItemProps,
+    { icon, name, id: boardId, ...props }: LinkItemProps,
     ref: ForwardedRef<HTMLAnchorElement>
   ) => {
     //FIXME: Highlight
-    const { pathname } = useLocation();
-    const isActive = pathname.includes(name);
+    const { id } = useParams();
+    const isActive = id === boardId;
 
     return (
       <Link

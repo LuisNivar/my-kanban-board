@@ -60,7 +60,7 @@ function Separator() {
   return <SelectPrimitive.Separator className="m-1 h-px bg-neutral-500" />;
 }
 
-const SelectItem = React.forwardRef(
+const Item = React.forwardRef(
   (
     { children, ...props }: SelectPrimitive.SelectItemProps,
     forwardedRef: ForwardedRef<HTMLDivElement>
@@ -84,5 +84,5 @@ export default Object.assign(Select, {
   Content,
   Groups,
   Separator,
-  SelectItem,
+  Item,
 });

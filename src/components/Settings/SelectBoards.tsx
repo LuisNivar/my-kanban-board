@@ -11,11 +11,11 @@ export default function SelectBoards({ ...props }: SelectProps) {
     <Select {...props} ariaLabel="Boards" placeholder="Select a board...">
       <Select.Content>
         {sidebar.map((item) => (
-          <Select.SelectItem key={item.icon} value={item.id}>
+          <Select.Item key={item.icon} value={item.id}>
             <span className="flex items-center gap-2">
               {ICON_DICTIONARY[item.icon]} {item.name}
             </span>
-          </Select.SelectItem>
+          </Select.Item>
         ))}
       </Select.Content>
     </Select>

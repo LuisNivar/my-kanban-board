@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
-import { ColumnType, ColumnProps, ItemProps } from "../../types";
+import { useParams } from "react-router-dom";
+import { SidebarDispatchContext } from "../../Context";
+import { ColumnProps, ColumnType, ItemProps } from "../../types";
 import { Card } from "../Card";
+import ColumnDialog from "../ColumnDialog";
+import DeleteDialog from "../DeleteDialog";
 import ColumnHeader from "./ColumnHeader";
 import DraggableZone from "./DraggableZone";
 import { NewTaskButton } from "./NewTaskButton";
-import DeleteDialog from "../DeleteDialog";
-import { useParams } from "react-router-dom";
-import { SidebarDispatchContext } from "../../Context";
-import ColumnDialog from "../ColumnDialog";
 
 export default function Column(props: ColumnProps) {
   const { id: columnId, color, cards, name } = props;
@@ -24,7 +24,6 @@ export default function Column(props: ColumnProps) {
   }
 
   function handlerEdit() {
-    //TODO: Real Edit
     setOpenEditDialog(true);
   }
 

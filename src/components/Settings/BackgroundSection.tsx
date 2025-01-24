@@ -1,13 +1,13 @@
+import clsx from "clsx";
 import { PropsWithChildren, useContext, useEffect, useState } from "react";
 import { SidebarContext, SidebarDispatchContext } from "../../Context";
 import { BackgroundToggleProps } from "../../types";
 import { BackgrounIcon } from "../Icons";
 import Switch from "../UI/Switch";
+import { Field } from "./Field";
 import { Sections } from "./Sections";
 import SelectBoards from "./SelectBoards";
 import { BACKGROUNDS_COLLECTION, DEFAULT_BACKGROUND } from "./utils";
-import clsx from "clsx";
-import { Field } from "./Field";
 
 export default function BackgrounbdSection() {
   const [backgrounds, setBackgrounds] = useState(BACKGROUNDS_COLLECTION);
@@ -26,8 +26,6 @@ export default function BackgrounbdSection() {
   useEffect(() => {
     if (!selectedBoard) return;
     if (!selection) return;
-
-    console.log(selectedBoard);
 
     dispatch({
       type: "backgroundChange",
@@ -50,9 +48,8 @@ export default function BackgrounbdSection() {
 
   // Load background by board
   useEffect(() => {
-    const selectedBackground = sidebar.filter(
-      (s) => s.icon === selectedBoard
-    )[0]?.background;
+    const selectedBackground = sidebar.filter((s) => s.id === selectedBoard)[0]
+      ?.background;
 
     if (!selectedBackground) return;
     setShowBackgrounds(selectedBackground !== DEFAULT_BACKGROUND);
@@ -89,8 +86,6 @@ export default function BackgrounbdSection() {
         return { ...b, disable: !b.disable };
       });
     });
-    //TODO: Do better
-    setSelection(DEFAULT_BACKGROUND);
   }
 
   return (

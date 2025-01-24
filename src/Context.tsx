@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { createContext } from "react";
 import {
   ActionsCardsType,
@@ -17,19 +18,20 @@ export const CardDispatchContext = createContext<
 >(() => {});
 
 export const COLUMN_DEFAULT: ColumnType[] = [
-  { name: "BACKLOCK", id: "backlock", color: "neutral" },
-  { name: "TODO", id: "todo", color: "amber" },
-  { name: "DOING", id: "doing", color: "cyan" },
-  { name: "COMPLETE", id: "complete", color: "emerald" },
+  { name: "BACKLOCK", id: nanoid(), color: "neutral" },
+  { name: "TODO", id: nanoid(), color: "amber" },
+  { name: "DOING", id: nanoid(), color: "cyan" },
+  { name: "COMPLETE", id: nanoid(), color: "emerald" },
 ];
 
 //Sidebar context
+const homeId = nanoid();
 export const SIDEBAR_STATE: SideBarItemLink[] = [
   {
     name: "home",
-    id: "home",
+    id: homeId,
     icon: "home",
-    path: "/board/home",
+    path: `/board/${homeId}`,
     columns: COLUMN_DEFAULT,
   },
 ];

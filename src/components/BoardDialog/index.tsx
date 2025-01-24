@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { useContext, useState } from "react";
-import { COLUMN_DEFAULT, SidebarDispatchContext } from "../../Context";
-import { IconToggle, SideBarItemLink } from "../../types";
+import { SidebarDispatchContext } from "../../Context";
+import { ColumnType, IconToggle, SideBarItemLink } from "../../types";
 import Dialog, { DialogProps } from "../UI/Dialog";
 import { IconsGroup } from "./IconsGroup";
 
@@ -15,11 +15,18 @@ export default function BoardDialog({ children, ...props }: DialogProps) {
     if (!selection) return;
     const id = nanoid();
 
+    const columns: ColumnType[] = [
+      { name: "BACKLOCK", id: nanoid(), color: "neutral" },
+      { name: "TODO", id: nanoid(), color: "amber" },
+      { name: "DOING", id: nanoid(), color: "cyan" },
+      { name: "COMPLETE", id: nanoid(), color: "emerald" },
+    ];
+
     const newItemLink: SideBarItemLink = {
       name,
       icon: selection.key,
       path: `/board/${id}`,
-      columns: COLUMN_DEFAULT,
+      columns: columns,
       id,
     };
 

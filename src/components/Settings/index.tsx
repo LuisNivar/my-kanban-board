@@ -1,5 +1,4 @@
 import BackgrounbdSection from "./BackgroundSection";
-import GeneralSection from "./GeneralSection";
 import SidebarSection from "./SidebarSection";
 
 export default function SettingsContent() {
@@ -11,7 +10,8 @@ export default function SettingsContent() {
       <div className="flex items-start gap-3">
         <SidebarSection />
         <BackgrounbdSection />
-        <GeneralSection />
+        {/* TODO: Add in the future */}
+        {/* <GeneralSection /> */}
       </div>
     </div>
   );

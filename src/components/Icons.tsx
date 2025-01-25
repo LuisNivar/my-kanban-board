@@ -35,6 +35,7 @@ import {
   GoChevronUp as ChevronUpIcon,
   GoGear as SettingIcon,
 } from "react-icons/go";
+import { TbBrandGithub as GitHubIcon } from "react-icons/tb";
 
 import { HiOutlineAdjustments as AdjustmentIcon } from "react-icons/hi";
 
@@ -56,6 +57,7 @@ export {
   FireIcon,
   FolderIcon,
   GameIcon,
+  GitHubIcon,
   HammerIcon,
   HeartIcon,
   HomeIcon,

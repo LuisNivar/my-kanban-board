@@ -7,6 +7,7 @@ import "./index.css";
 import Settings from "./pages/Settings.tsx";
 import Home from "./pages/home.tsx";
 import NotFoundPage from "./pages/NoFoundPage.tsx";
+import ValidateBoardId from "./ValidateBoardId.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -14,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="/" element={<Home />} />
-          <Route path="/board/:id" element={<Kanban />} />
+          <Route path="/board/:id" element={<ValidateBoardId />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

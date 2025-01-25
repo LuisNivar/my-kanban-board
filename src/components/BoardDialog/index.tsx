@@ -12,7 +12,9 @@ export default function BoardDialog({ children, ...props }: DialogProps) {
   const dispatch = useContext(SidebarDispatchContext);
 
   function handleCreate() {
+    //TODO : Validation
     if (!selection) return;
+    if (!name) return;
     const id = nanoid();
 
     const columns: ColumnType[] = [

@@ -19,7 +19,7 @@ export default function BoardShortCut({
   return (
     <Link
       className={clsx(
-        "group flex-shrink-0 border transition-colors border-neutral-750 hover:border-teal-900 overflow-hidden bg-cover flex flex-col w-56 h-40 justify-end rounded-lg text-neutral-400",
+        "group flex-shrink-0 border transition-colors border-neutral-750 hover:border-teal-900 overflow-hidden bg-cover flex flex-col w-40 h-28 lg:w-56 lg:h-40 justify-end rounded-lg text-neutral-400",
         background ?? DEFAULT_BACKGROUND
       )}
       rel="preload"

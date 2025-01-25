@@ -5,7 +5,7 @@ import BoardShortCut from "./BoardShortCut";
 export default function HomeContent() {
   const sidebar = useContext(SidebarContext);
   return (
-    <div className="w-fit max-w-[900px] rounded-lg text-base flex flex-col gap-2 p-5 bg-neutral-750">
+    <div className="w-fit max-w-[600px] lg:max-w-[900px] rounded-lg text-base flex flex-col gap-2 p-5 bg-neutral-750">
       <h3 className="text-lg">📝 My Boards</h3>
       <div className="flex gap-2 overflow-x-auto">
         {sidebar.map((board) => {

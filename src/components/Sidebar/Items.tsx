@@ -15,10 +15,12 @@ type itemsProps = { state: SideBarItemLink[] };
 export default function Items({ state }: itemsProps) {
   const dispatch = useContext(SidebarDispatchContext);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   function Delete() {
     const id = dataTransfer.getData("id");
     dispatch({ type: "delete", id });
+    navigate("/");
   }
 
   return (

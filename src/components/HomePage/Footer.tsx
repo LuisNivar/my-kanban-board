@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { GitHubIcon, WorkIcon } from "../Icons";
 
 export default function Footer() {

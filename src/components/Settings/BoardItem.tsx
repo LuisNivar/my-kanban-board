@@ -50,7 +50,7 @@ export default function BoardItem({ icon, name, id }: BoardItemProps) {
     }
   }
 
-  function handleDelete(e: React.MouseEvent<HTMLElement>) {
+  function handleDelete() {
     setOpen(true);
   }
 
@@ -81,7 +81,7 @@ export default function BoardItem({ icon, name, id }: BoardItemProps) {
 
         <button
           className="group p-2 rounded-lg hover:bg-red-800/20"
-          onClick={handleDelete}
+          onClick={() => handleDelete()}
         >
           <TrashIcon className="transition-colors text-red-400 group-hover:text-red-300" />
         </button>

@@ -1,8 +1,6 @@
 # My Kanban board
 
-A simple Kanban board made using Vite with React and Tailwind CSS.
-
-![image](https://github.com/user-attachments/assets/3e6a0032-5666-4763-be4e-54ab9ca094b9)
+It's a simple but powerful project management tool that allows the user to work on multiple boards and customize them. Admit drag and drop, responsive design, and accessibility.
 
 ## Screenshots
 
@@ -16,8 +14,9 @@ A simple Kanban board made using Vite with React and Tailwind CSS.
 ![image](https://github.com/user-attachments/assets/72b52885-6b76-4af5-99a8-36bb4219a5b2)
 ![image](https://github.com/user-attachments/assets/ec8cfac6-7d7a-45f9-bad2-9ef307a9e555)
 
+## Try it
 
-
+You can try it online at [My-Kanban-Board](https://my-kanban-board-luis-nivar.vercel.app/). 
 
 ## Built With
 

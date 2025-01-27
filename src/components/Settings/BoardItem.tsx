@@ -21,7 +21,7 @@ export default function BoardItem({ icon, name, id }: BoardItemProps) {
     setInputName(e.target.value);
   }
 
-  function handleClick(e: React.MouseEvent<HTMLElement>) {
+  function handleClick() {
     setEditing(!editing);
     // HACK Use a timeout to prevent race condition between any active focus and this one
     const timeout = setTimeout(() => {
@@ -74,7 +74,7 @@ export default function BoardItem({ icon, name, id }: BoardItemProps) {
         />
         <button
           className="p-2 rounded-lg transition-colors  hover:bg-neutral-700"
-          onClick={handleClick}
+          onClick={() => handleClick()}
         >
           <EditIcon />
         </button>

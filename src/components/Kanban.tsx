@@ -10,7 +10,7 @@ import NewColumnButton from "./ColumnDialog/NewColumnButton";
 
 export function Kanban() {
   const state = useContext(SidebarContext);
-  //TODO: Find a better way
+
   const { id } = useParams();
   const background =
     state.filter((b) => b.id === id)[0]?.background ?? DEFAULT_BACKGROUND;
@@ -28,13 +28,12 @@ export function Kanban() {
 
 function Columns() {
   const { id } = useParams();
-  const boards = useContext(CardContext);
   const sidebar = useContext(SidebarContext);
+  const boards = useContext(CardContext);
 
-  //FIXME: Get a better way to to that
   if (!id) return;
   const cards: ItemProps[] = boards[id] ?? [];
-  const columns = sidebar.filter((s) => s.id === id)[0]?.columns ?? [];
+  const columns = sidebar.find((s) => s.id === id)?.columns ?? [];
 
   return (
     <main className="w-fit overflow-x-auto h-full pb-1 flex gap-2">

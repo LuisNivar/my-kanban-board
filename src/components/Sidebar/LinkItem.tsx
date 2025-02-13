@@ -14,7 +14,6 @@ export const LinkItem = React.forwardRef(
     { icon, name, id: boardId, ...props }: LinkItemProps,
     ref: ForwardedRef<HTMLAnchorElement>
   ) => {
-    //FIXME: Highlight
     const { id } = useParams();
     const isActive = id === boardId;
 

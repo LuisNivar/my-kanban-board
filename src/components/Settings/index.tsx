@@ -1,4 +1,4 @@
-import BackgrounbdSection from "./BackgroundSection";
+import BackgrounbdSection from "./Background/BackgroundSection";
 import SidebarSection from "./SidebarSection";
 
 export default function SettingsContent() {

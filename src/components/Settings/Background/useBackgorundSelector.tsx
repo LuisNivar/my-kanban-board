@@ -46,12 +46,20 @@ const useBackgroundSelector = ({
 
   useEffect(() => {
     handleDisable(!showBackgrounds);
+
+    if (!showBackgrounds && selectedBoard) {
+      dispatch({
+        type: "backgroundChange",
+        boardId: selectedBoard,
+        background: DEFAULT_BACKGROUND,
+      });
+    }
   }, [showBackgrounds]);
 
   const reset = () => {
     setBackgrounds(BACKGROUNDS_COLLECTION);
-    setShowBackgrounds(false);
     handleDisable(true);
+    setShowBackgrounds(false);
   };
 
   function handleDisable(value: boolean) {
@@ -60,24 +68,18 @@ const useBackgroundSelector = ({
         return { ...b, disable: value };
       });
     });
-
-    if (!value && selectedBoard) {
-      dispatch({
-        type: "backgroundChange",
-        boardId: selectedBoard,
-        background: DEFAULT_BACKGROUND,
-      });
-    }
   }
 
   const handleSelectionChange = (key: string) => {
     const background = backgrounds.find((b) => b.key === key);
-    if (!background || !selectedBoard) return;
+    if (!background || !selectedBoard) {
+      return;
+    }
 
     setBackgrounds((prevState) => {
       return prevState.map((bg) => {
         if (bg.key === key) {
-          return { ...bg, toggled: !bg.toggled };
+          return { ...bg, toggled: true };
         } else {
           return { ...bg, toggled: false };
         }
